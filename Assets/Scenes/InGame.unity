@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 518906977}
   - component: {fileID: 518906976}
   - component: {fileID: 518906979}
+  - component: {fileID: 518906982}
   - component: {fileID: 518906980}
   - component: {fileID: 518906981}
   m_Layer: 0
@@ -251,6 +252,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 518906982}
+          m_TargetAssemblyTypeName: ChangeImage, Assembly-CSharp
+          m_MethodName: OnClickChangeImage
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!61 &518906981
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -277,6 +290,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.16, y: 1.11}
   m_EdgeRadius: 0
+--- !u!114 &518906982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518906975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ceeab4654b701a48a0e41f157657cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnImage: {fileID: 0}
+  OffImage: {fileID: 0}
 --- !u!1 &705557765
 GameObject:
   m_ObjectHideFlags: 0
