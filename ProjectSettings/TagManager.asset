@@ -6,6 +6,12 @@ TagManager:
   tags:
   - TurnOn
   - TurnOff
+  - HoleOn
+  - HoleOff
+  - StopOn
+  - StopOff
+  - DayOn
+  - DayOff
   layers:
   - Default
   - TransparentFX

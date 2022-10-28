@@ -10,18 +10,15 @@ public class TurnFloor : MonoBehaviour
 
 
     public void TurnEvent(){
-        Debug.Log("イベント検知");
 
         if(TurnFlag == false){
         this.tag = ModeOn;
         TurnFlag = true;
-        Debug.Log (TurnFlag);
         }
 
         else if(TurnFlag == true){
             this.tag = ModeOff;
             TurnFlag = false;
-            Debug.Log (TurnFlag);
         }
     }
 
