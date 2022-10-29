@@ -12,6 +12,18 @@ TagManager:
   - StopOff
   - DayOn
   - DayOff
+  - Warp1_1On
+  - Warp1_1Off
+  - Warp1_2On
+  - Warp1_2Off
+  - Warp2_1On
+  - Warp2_1Off
+  - Warp2_2On
+  - Warp2_2Off
+  - Warp3_1On
+  - Warp3_1Off
+  - Warp3_2On
+  - Warp3_2Off
   layers:
   - Default
   - TransparentFX
