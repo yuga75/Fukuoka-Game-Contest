@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartEvent : MonoBehaviour
+public class ContinueEvent : MonoBehaviour
 {
-    
-    public void StartSwitchScene()
+    public void ContinueSwitchScene()
     {
         SceneManager.LoadScene("hoge", LoadSceneMode.Single);
     }
