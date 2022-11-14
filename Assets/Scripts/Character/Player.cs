@@ -1,24 +1,24 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameObject player;   //(‘€ì)ˆÚ“®‚µ‚½‚¢ƒIƒuƒWƒFƒNƒg‚ğİ’è
-    public Vector3 movePosition;@//ˆÚ“®‚·‚é‹——£‚ğŠi”[
-    public int speed = 5;@//1ƒ}ƒX–ˆ‚ÉˆÚ“®‚·‚éƒXƒs[ƒh
-    public float rotateSpeed = 5;   //‰ñ“]ƒXƒs[ƒh
-    public Vector3 moveY = new Vector3(0, 1, 0);@//(1ƒ}ƒX–ˆ‚Ì)Y²‚ÌˆÚ“®‹——£
-    public Vector3 moveX = new Vector3(1, 0, 0);@//(1ƒ}ƒX–ˆ‚Ì)X²‚ÌˆÚ“®‹——£
+    public GameObject player;   //(æ“ä½œ)ç§»å‹•ã—ãŸã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®š
+    public Vector3 movePosition;ã€€//ç§»å‹•ã™ã‚‹è·é›¢ã‚’æ ¼ç´
+    public int speed = 5;ã€€//1ãƒã‚¹æ¯ã«ç§»å‹•ã™ã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰
+    public float rotateSpeed = 5;   //å›è»¢ã‚¹ãƒ”ãƒ¼ãƒ‰
+    public Vector3 moveY = new Vector3(0, 1, 0);ã€€//(1ãƒã‚¹æ¯ã®)Yè»¸ã®ç§»å‹•è·é›¢
+    public Vector3 moveX = new Vector3(1, 0, 0);ã€€//(1ãƒã‚¹æ¯ã®)Xè»¸ã®ç§»å‹•è·é›¢
     bool hogehoge;
-    bool firstMoveJudge;    //Å‰‚ÌƒtƒŒ[ƒ€‚ÌˆÚ“®”»’è
-    bool moveJudge; //ˆÚ“®’†‚Ì”»’è
-    bool rotateJudge;   //‰ñ“]’†‚Ì”»’è
+    bool firstMoveJudge;    //æœ€åˆã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®ç§»å‹•åˆ¤å®š
+    bool moveJudge; //ç§»å‹•ä¸­ã®åˆ¤å®š
+    bool rotateJudge;   //å›è»¢ä¸­ã®åˆ¤å®š
 
     void Start()
     {
-        //‰Šúİ’è
+        //åˆæœŸè¨­å®š
         firstMoveJudge = true;
         moveJudge = false;
         rotateJudge = false;
@@ -26,36 +26,36 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //ˆÚ“®êŠİ’è
-        //ˆÚ“®‚ğs‚¤‚ÆAmoveJudge = true ‚É•Ï‚í‚èAˆê“I‚ÉˆÚ“®‚Ì•ªŠòˆ—‚ğ–³Œø‰»
-        if (hogehoge == true)   //Ä¶”»’è‚ª^‚Å‚ ‚é
+        //ç§»å‹•å ´æ‰€è¨­å®š
+        //ç§»å‹•ã‚’è¡Œã†ã¨ã€moveJudge = true ã«å¤‰ã‚ã‚Šã€ä¸€æ™‚çš„ã«ç§»å‹•ã®åˆ†å²å‡¦ç†ã‚’ç„¡åŠ¹åŒ–
+        if (hogehoge == true)   //å†ç”Ÿåˆ¤å®šãŒçœŸã§ã‚ã‚‹
         {
-            //Å‰‚ÌƒtƒŒ[ƒ€‚Í“Æ—§‚µ‚½ˆÚ“®ˆ—‚ğs‚¤
-            if (firstMoveJudge == true && this.gameObject.CompareTag("’Êí°"))
+            //æœ€åˆã®ãƒ•ãƒ¬ãƒ¼ãƒ ã¯ç‹¬ç«‹ã—ãŸç§»å‹•å‡¦ç†ã‚’è¡Œã†
+            if (firstMoveJudge == true && this.gameObject.CompareTag("é€šå¸¸åºŠ"))
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);
                 firstMoveJudge = false;
             }
             else
             {
-                //Õ“Ëˆ—
+                movePosition = new Vector3(0, 0, 0);
             }
 
             if (moveJudge == false)
             {
-                if (Input.GetKeyDown("up"))
+                if (this.gameObject.CompareTag("å›è»¢åºŠ"))
                 {
-                    movePosition = player.transform.position + moveY;  //movePosition‚ÉˆÚ“®‚·‚é‹——£‚ğŠi”[
-                    moveJudge = true;  //moveButtonJudge = true‚É‚µ‚ÄAˆÚ“®‚ğ§ŒÀ‚·‚é
+                    movePosition = player.transform.position + moveY;  //movePositionã«ç§»å‹•ã™ã‚‹è·é›¢ã‚’æ ¼ç´
+                    moveJudge = true;  //moveButtonJudge = trueã«ã—ã¦ã€ç§»å‹•ã‚’åˆ¶é™ã™ã‚‹
                 }
             }
         }
 
-        player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);   //ˆÚ“®ŠJn(playerƒIƒuƒWƒFƒNƒg‚ª, –Ú“I’n‚ÉˆÚ“®, ˆÚ“®‘¬“x)
+        player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);   //ç§»å‹•é–‹å§‹(playerã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒ, ç›®çš„åœ°ã«ç§»å‹•, ç§»å‹•é€Ÿåº¦)
 
 
 
-        //w’è‚µ‚½êŠ‚ÉƒIƒuƒWƒFƒNƒg‚ªˆÚ“®‚·‚é‚ÆAÄ“xˆÚ“®ˆ—‚ª‰Â”\‚É‚È‚é
+        //æŒ‡å®šã—ãŸå ´æ‰€ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒç§»å‹•ã™ã‚‹ã¨ã€å†åº¦ç§»å‹•å‡¦ç†ãŒå¯èƒ½ã«ãªã‚‹
         if (player.transform.position == movePosition) moveJudge = false;
     }
 }
