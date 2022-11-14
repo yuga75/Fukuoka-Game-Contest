@@ -1,20 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class ResetButton : MonoBehaviour
+public class BackEvent : MonoBehaviour
 {
-    public void ResetEvent()
-    {
-        if(PlayButton.playing == true)
-        {
-            Debug.Log("再生中につき、変更不可");
-        }
-        else
-        {
-            //TagをResetに変更
-        }
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +15,9 @@ public class ResetButton : MonoBehaviour
     void Update()
     {
         
+    }
+    public void BackSwitchScene()
+    {
+        SceneManager.LoadScene("hoge", LoadSceneMode.Single);
     }
 }
