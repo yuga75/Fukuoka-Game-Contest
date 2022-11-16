@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class rotate : MonoBehaviour
 {
 
     float rotation_speed = 0; // 回転速度
-    bool key = true;
+    int count = 0;
 
     // Use this for initialization
     void Start()
@@ -15,18 +16,22 @@ public class rotate : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // 左クリックされたら回転速度を設定する
-        if (Input.GetMouseButtonDown(0))
-        {
-            this.rotation_speed = 1.0f;
+            this.rotation_speed = 7.2f;
             //rotation_speed = 0;
-        }
         // 回転速度分回す
-        if (key == true)
+        if (count != 50)
         {
-            gameObject.transform.Rotate(new Vector3(0, 1, 0));
+            gameObject.transform.Rotate(new Vector3(0, this.rotation_speed, 0));
+            count += 1;
+            Debug.Log(count);
+        }
+        else
+        {
+            this.rotation_speed = 0.0f;
+            gameObject.transform.Rotate(new Vector3(0, this.rotation_speed, 0));
         }
     }
 }
