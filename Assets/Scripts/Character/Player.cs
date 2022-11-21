@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
                 {
                     if (count == 50)
                     {
+                        //FixedUpdateで一秒を計測するために50回カウントを行う
                         rotateJudge = false;
                         count = 0;
                     }
@@ -80,14 +82,20 @@ public class Player : MonoBehaviour
                 /*-----ここから通行止め床の処理-----*/
                 if (this.gameObject.CompareTag("通行止め床"))
                 {
-
+                    var tagId = int.Parse(this.gameObject.tag);
+                    //if () { }
                 }
                 /*-----ここまで通行止め床の処理-----*/
             }
         }
+        else
+        {
+            Time.timeScale = 0; //一時停止する
+        }
 
         if (rotateJudge == false)
         {
+            //回転していないときのみ移動可能
             player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
         }
 
