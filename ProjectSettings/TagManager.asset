@@ -24,6 +24,14 @@ TagManager:
   - Warp3_1Off
   - Warp3_2On
   - Warp3_2Off
+  - TurnUpOn
+  - TurnUpOff
+  - TurnDownOn
+  - TurnDownOff
+  - TurnRightOn
+  - TurnRightOff
+  - TurnLeftOn
+  - TurnLeftOff
   layers:
   - Default
   - TransparentFX

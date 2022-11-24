@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnFloor : MonoBehaviour
+public class TurnUpFloor : MonoBehaviour
 {
     private bool TurnFlag = false;
-    private string ModeOn = "TurnOn";
-    private string ModeOff = "TurnOff";
+    private string ModeOn = "TurnUpOn";
+    private string ModeOff = "TurnUpOff";
 
 
     public void TurnEvent(){
