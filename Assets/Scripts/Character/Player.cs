@@ -16,14 +16,14 @@ public class Player : MonoBehaviour
     bool hogehoge;
     bool firstMoveJudge;    //最初のフレームの移動判定
     bool moveJudge; //移動中の判定
-    bool rotateJudge;   //回転中の判定
+    bool stopJudge;   //回転中の判定
 
     void Start()
     {
         //初期設定
         firstMoveJudge = true;
         moveJudge = false;
-        rotateJudge = false;
+        stopJudge = false;
     }
 
     void FixedUpdate()
@@ -40,10 +40,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-                movePosition = new Vector3(0, 0, 0);
+                movePosition = new Vector3(0, 0, 0);    //移動距離を0にする
             }
 
-            if (moveJudge == false)
+            if (moveJudge == false) //移動判定が偽である
             {
 
                 /*-----ここから回転床の処理-----*/
@@ -52,18 +52,18 @@ public class Player : MonoBehaviour
                     if (count == 50)
                     {
                         //FixedUpdateで一秒を計測するために50回カウントを行う
-                        rotateJudge = false;
+                        stopJudge = false;
                         count = 0;
                     }
 
-                    if (rotateJudge == false)
+                    if (stopJudge == false)
                     {
                         movePosition = player.transform.position + moveY;  //movePositionに移動する距離を格納
-                        moveJudge = true;  //moveButtonJudge = trueにして、移動を制限する
+                        moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
                     }
                     else if(moveJudge == false)
                     {
-                        rotateJudge = true;
+                        stopJudge = true;
                         gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
                         count += 1;
                     }
@@ -77,15 +77,48 @@ public class Player : MonoBehaviour
                 /*-----ここまでワープ床の処理-----*/
 
                 /*-----ここから落とし穴の処理-----*/
-                /*-----ここまで落とし穴の処理-----*/
-
-                /*-----ここから通行止め床の処理-----*/
-                if (this.gameObject.CompareTag("通行止め床"))
+                if (this.gameObject.CompareTag("回転床"))
                 {
-                    var tagId = int.Parse(this.gameObject.tag);
-                    //if () { }
+                    if (count == 50)
+                    {
+                        //FixedUpdateで一秒を計測するために50回カウントを行う
+                        stopJudge = false;
+                        count = 0;
+                    }
+                    if (stopJudge == false)
+                    {
+                        movePosition = player.transform.position + moveY;  //movePositionに移動する距離を格納
+                        moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
+                    }
+                    else if (moveJudge == false)
+                    {
+                        stopJudge = true;
+                        count += 1;
+                    }
+                }
+                    /*-----ここまで落とし穴の処理-----*/
+
+                    /*-----ここから通行止め床の処理-----*/
+                    if (this.gameObject.CompareTag("通行止め床"))
+                {
+                    var tagId = this.gameObject.tag;
+                    if (tagId == "Player")
+                    {
+                        movePosition = new Vector3(0, 0, 0);
+                    }
                 }
                 /*-----ここまで通行止め床の処理-----*/
+
+                /*-----ここからゴール床の処理*/
+                if (this.gameObject.CompareTag("ゴール床"))
+                {
+                    var tagId = this.gameObject.tag;
+                    if (tagId == "Player")
+                    {
+                        movePosition = new Vector3(0, 0, 0);
+                    }
+                }
+                /*-----ここまでゴール床の処理*/
             }
         }
         else
@@ -93,7 +126,7 @@ public class Player : MonoBehaviour
             Time.timeScale = 0; //一時停止する
         }
 
-        if (rotateJudge == false)
+        if (stopJudge == false)
         {
             //回転していないときのみ移動可能
             player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
