@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private Vector2 prePosition;
+    public Vector2 prePosition;
 
     /// <summary>
     /// ドラッグ開始時に呼び出される

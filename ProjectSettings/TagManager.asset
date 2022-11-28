@@ -32,6 +32,9 @@ TagManager:
   - TurnRightOff
   - TurnLeftOn
   - TurnLeftOff
+  - Wolf
+  - Human
+  - Enemy
   layers:
   - Default
   - TransparentFX
