@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 1962435285}
   - component: {fileID: 1962435284}
   m_Layer: 0
-  m_Name: Player
+  m_Name: "Player(\u4EEE)"
   m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllButton: {fileID: 0}
-  DragDropScript: {fileID: 1962435286}
+  dragDropScript: {fileID: 0}
   player: {fileID: 1962435280}
   movePosition: {x: 0, y: 0, z: 0}
   speed: 5

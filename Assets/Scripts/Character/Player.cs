@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -9,7 +10,15 @@ public class Player : MonoBehaviour
     //再生ボタンの取得
     GameObject ControllButton;
     public ControllButton controllButton;
-    public DragDropScript DragDropScript;
+    public DragDropScript dragDropScript;
+
+    public GameObject Warp1_1;
+    public GameObject Warp1_2;
+    public GameObject Warp2_1;
+    public GameObject Warp2_2;
+    public GameObject Warp3_1;
+    public GameObject Warp3_2;
+
 
     public GameObject player;   //(操作)移動したいオブジェクトを設定
     public Vector3 movePosition;　//移動する距離を格納
@@ -37,15 +46,15 @@ public class Player : MonoBehaviour
         //初期設定
         player.tag = "Human";
 
-        firstMoveJudge = true;
-        moveJudge = false;
-        stopJudge = false;
+        firstMoveJudge = true;  //最初のフレームの移動判定を真にする
+        moveJudge = false;  //2フレーム目以降の移動判定を偽にする
+        stopJudge = false;  //停止判定を偽にする
 
-        ControllButton = GameObject.Find("ControllButton");
+        ControllButton = GameObject.Find("ControllButton"); //再生ボタンを探す
         controllButton = ControllButton.GetComponent<ControllButton>();
     }
 
-    void FixedUpdate()
+    void FixedUpdate()  //0.02秒毎に呼び出される
     {
         //移動場所設定
         //移動を行うと、moveJudge = true に変わり、一時的に移動の分岐処理を無効化
@@ -55,14 +64,14 @@ public class Player : MonoBehaviour
             if (firstMoveJudge == true && this.gameObject.CompareTag("NormalFloor"))    //通常床の場合
             {
                 player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);
-                firstMoveJudge = false;
+                firstMoveJudge = false; //最初の移動判定を偽にする
             }
             else
             {
                 movePosition = new Vector3(0, 0, 0);    //移動距離を0にする
             }
 
-            if (moveJudge == false) //移動判定が偽である
+            if (moveJudge == false && firstMoveJudge == false) //移動判定が偽である
             {
 
                 /*-----ここから回転床の処理-----*/
@@ -82,7 +91,7 @@ public class Player : MonoBehaviour
                     }
                     else if(moveJudge == false)
                     {
-                        stopJudge = true;
+                        stopJudge = true;   //一時的に移動をとめる
                         gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
                         count += 1;
                     }
@@ -169,15 +178,40 @@ public class Player : MonoBehaviour
 
 
                 /*-----ここからワープ床の処理-----*/
-                if (this.gameObject.CompareTag("ワープ床"))
+                if (this.gameObject.CompareTag("Warp1_1On"))
                 {
-                    collision.gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
+                    this.gameObject.transform.position = Warp1_2.transform.position;
                 }
-                /*-----ここまでワープ床の処理-----*/
+
+                if (this.gameObject.CompareTag("Warp1_2On"))
+                {
+                    this.gameObject.transform.position = Warp1_1.transform.position;
+                }
+
+                if (this.gameObject.CompareTag("Warp2_1On"))
+                {
+                    this.gameObject.transform.position = Warp2_2.transform.position;
+                }
+
+                if (this.gameObject.CompareTag("Warp2_2On"))
+                {
+                    this.gameObject.transform.position = Warp2_1.transform.position;
+                }
+
+                if (this.gameObject.CompareTag("Warp3_1On"))
+                {
+                    this.gameObject.transform.position = Warp3_2.transform.position;
+                }
+
+                if (this.gameObject.CompareTag("Warp3_2On"))
+                {
+                    this.gameObject.transform.position = Warp3_1.transform.position;
+                }
+                    /*-----ここまでワープ床の処理-----*/
 
 
-                /*-----ここから落とし穴の処理-----*/
-                if (this.gameObject.CompareTag("HoleFloor"))    //落とし穴の場合
+                    /*-----ここから落とし穴の処理-----*/
+                    if (this.gameObject.CompareTag("HoleFloor"))    //落とし穴の場合
                 {
                     if (count == 50)    //カウントが50になったら
                     {
@@ -225,6 +259,7 @@ public class Player : MonoBehaviour
                 if (tagId == "Player")
                 {
                     movePosition = new Vector3(0, 0, 0);
+                    transform.position = dragDropScript.prePosition;
                 }
             }
             /*-----ここまで通行止め床の処理-----*/
@@ -259,6 +294,11 @@ public class Player : MonoBehaviour
         else //再生中でない場合
         {
             Time.timeScale = 0; //一時停止する
+        }
+
+        if(hogehoge == true)
+        {
+            transform.position = dragDropScript.prePosition;
         }
     }
 }
