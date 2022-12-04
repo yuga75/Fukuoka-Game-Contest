@@ -34,15 +34,15 @@ public class CameraController : MonoBehaviour
 
     private void SetInvokeNext()
     {
-        Camera.transform.position = new Vector3(NowCameraPosition+25,0,-10);
         NowCameraPosition = NowCameraPosition+25;
+        Camera.transform.position = new Vector3(NowCameraPosition,0,-10);
         Debug.Log(0);
     }
 
     private void SetInvokeBack()
     {
-        Camera.transform.position = new Vector3(NowCameraPosition-25,0,-10);
         NowCameraPosition = NowCameraPosition-25;
+        Camera.transform.position = new Vector3(NowCameraPosition,0,-10);
         Debug.Log(1);
     }
 }
