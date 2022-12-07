@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class ControllButton : MonoBehaviour
 {
-    public static bool playing;
-    public static bool stopping;
-    public GameObject BC_T;
+    public static bool play = false;
+    public static bool stop = false;
+    public static bool fast = false;
+    public static bool reset = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        playing = false;
-        stopping = false;
+
     }
 
     // Update is called once per frame
@@ -25,51 +25,55 @@ public class ControllButton : MonoBehaviour
     //再生ボタンが押されたときに実行
     public void PlayEvent()
     {
-        if (playing == true)
-        {
-            if (stopping == true)
-            {
-                stopping = false;
-                BC_T.tag = "start";
-            }
-            else
-            {
-                Debug.Log("既に再生中");
-            }
-        }
-        else
-        {
-            playing = true;
-            BC_T.tag = "start";
-        }
+        play = true;
+        stop = false;
+        Debug.Log("play:" + play);
+        Debug.Log("stop:" + stop);
+        Debug.Log("fast:" + fast);
+        Debug.Log("reset:" + reset);
     }
 
     //ストップボタンが押されたときに実行
     public void StopEvent()
     {
-        if (playing == true)
+        play = false;
+        stop = true;
+        Debug.Log("play:" + play);
+        Debug.Log("stop:" + stop);
+        Debug.Log("fast:" + fast);
+        Debug.Log("reset:" + reset);
+    }
+
+    public void FastForwardEvent()
+    {
+        if (fast == true)
         {
-            stopping = true;
-            BC_T.tag = "stop";
+            fast = false;
+            Debug.Log("play:" + play);
+            Debug.Log("stop:" + stop);
+            Debug.Log("fast:" + fast);
+            Debug.Log("reset:" + reset);
         }
         else
         {
-            Debug.Log("再生中ではない");
+            fast = true;
+            Debug.Log("play:" + play);
+            Debug.Log("stop:" + stop);
+            Debug.Log("fast:" + fast);
+            Debug.Log("reset:" + reset);
         }
     }
-
 
     //リセットボタンが押されたときに実行
     public void ResetEvent()
     {
-        if (playing == true)
-        {
-            Debug.Log("再生中につき、変更不可");
-        }
-        else
-        {
-            Debug.Log("Reset");
-            BC_T.tag = "reset";
-        }
+        reset = true;
+        play = false;
+        stop = false;
+        fast = false;
+        Debug.Log("play:" + play);
+        Debug.Log("stop:" + stop);
+        Debug.Log("fast:" + fast);
+        Debug.Log("reset:" + reset);
     }
 }
