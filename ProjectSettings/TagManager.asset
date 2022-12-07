@@ -35,6 +35,8 @@ TagManager:
   - Wolf
   - Human
   - Enemy
+  - Goal
+  - NormalFloor
   layers:
   - Default
   - TransparentFX

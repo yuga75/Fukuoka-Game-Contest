@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,10 +19,10 @@ public class ControllButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ƒXƒe[ƒW‚ªI—¹‚µ‚½‚çplaying‚Æstopping‚ğfalse‚É‚·‚éB
+        //ã‚¹ãƒ†ãƒ¼ã‚¸ãŒçµ‚äº†ã—ãŸã‚‰playingã¨stoppingã‚’falseã«ã™ã‚‹ã€‚
     }
 
-    //Ä¶ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÉÀs
+    //å†ç”Ÿãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã«å®Ÿè¡Œ
     public void PlayEvent()
     {
         if (playing == true)
@@ -34,7 +34,7 @@ public class ControllButton : MonoBehaviour
             }
             else
             {
-                Debug.Log("Šù‚ÉÄ¶’†");
+                Debug.Log("æ—¢ã«å†ç”Ÿä¸­");
             }
         }
         else
@@ -44,7 +44,7 @@ public class ControllButton : MonoBehaviour
         }
     }
 
-    //ƒXƒgƒbƒvƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÉÀs
+    //ã‚¹ãƒˆãƒƒãƒ—ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã«å®Ÿè¡Œ
     public void StopEvent()
     {
         if (playing == true)
@@ -54,17 +54,17 @@ public class ControllButton : MonoBehaviour
         }
         else
         {
-            Debug.Log("Ä¶’†‚Å‚Í‚È‚¢");
+            Debug.Log("å†ç”Ÿä¸­ã§ã¯ãªã„");
         }
     }
 
 
-    //ƒŠƒZƒbƒgƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÉÀs
+    //ãƒªã‚»ãƒƒãƒˆãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã«å®Ÿè¡Œ
     public void ResetEvent()
     {
         if (playing == true)
         {
-            Debug.Log("Ä¶’†‚É‚Â‚«A•ÏX•s‰Â");
+            Debug.Log("å†ç”Ÿä¸­ã«ã¤ãã€å¤‰æ›´ä¸å¯");
         }
         else
         {
