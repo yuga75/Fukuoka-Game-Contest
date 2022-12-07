@@ -9,6 +9,8 @@ public class ControllButton : MonoBehaviour
     public static bool stop = false;
     public static bool fast = false;
     public static bool reset = false;
+    private float count = 0.0f;
+    private float limit = 5.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,20 @@ public class ControllButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (reset == true)
+        {
+            count += Time.deltaTime;
+            Debug.Log(count);
+            if (count >= limit)
+            {
+                reset = false;
+                Debug.Log("play:" + play);
+                Debug.Log("stop:" + stop);
+                Debug.Log("fast:" + fast);
+                Debug.Log("reset:" + reset);
+                count = 0.0f;
+            }
+        }
         //ステージが終了したらplayingとstoppingをfalseにする。
     }
 
