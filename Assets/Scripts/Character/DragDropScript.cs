@@ -38,7 +38,7 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
         foreach (var hit in raycastResults)
         {
-            if (hit.gameObject.CompareTag("hogehoge"))
+            if (hit.gameObject.CompareTag("NormalFloor"))
             {
                 transform.position = hit.gameObject.transform.position;
                 flg = false;
@@ -51,4 +51,8 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         }
     }
 
+    void Update()
+    {
+        Debug.Log(gameObject.transform.position);
+    }
 }
