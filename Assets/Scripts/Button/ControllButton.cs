@@ -1,95 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class ControllButton : MonoBehaviour
 {
-    public static bool play = false;
-    public static bool stop = false;
-    public static bool fast = false;
-    public static bool reset = false;
-    private float count = 0.0f;
-    private float limit = 5.0f;
+    public bool play = false;
+    public bool stop = false;
+    public bool fast = false;
+    public bool reset = false;
+    private float ResetCount = 0.0f;
+    private float ResetLimit = 5.0f;
+    [SerializeField] Image GameClear;
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        //resetは5秒経過でfalseにする。
         if (reset == true)
         {
-            count += Time.deltaTime;
-            Debug.Log(count);
-            if (count >= limit)
+            ResetCount += Time.deltaTime;
+            Debug.Log(ResetCount);
+            if (ResetCount >= ResetLimit)
             {
                 reset = false;
                 Debug.Log("play:" + play);
                 Debug.Log("stop:" + stop);
                 Debug.Log("fast:" + fast);
                 Debug.Log("reset:" + reset);
-                count = 0.0f;
+                ResetCount = 0.0f;
             }
         }
-        //ステージが終了したらplayingとstoppingをfalseにする。
-    }
-
-    //再生ボタンが押されたときに実行
-    public void PlayEvent()
-    {
-        play = true;
-        stop = false;
-        Debug.Log("play:" + play);
-        Debug.Log("stop:" + stop);
-        Debug.Log("fast:" + fast);
-        Debug.Log("reset:" + reset);
-    }
-
-    //ストップボタンが押されたときに実行
-    public void StopEvent()
-    {
-        play = false;
-        stop = true;
-        Debug.Log("play:" + play);
-        Debug.Log("stop:" + stop);
-        Debug.Log("fast:" + fast);
-        Debug.Log("reset:" + reset);
-    }
-
-    public void FastForwardEvent()
-    {
-        if (fast == true)
+        //ステージが終了したらplayとfastをfalseにする。
+        if(GameClear.enabled == true)
         {
+            play = false;
             fast = false;
-            Debug.Log("play:" + play);
-            Debug.Log("stop:" + stop);
-            Debug.Log("fast:" + fast);
-            Debug.Log("reset:" + reset);
         }
-        else
-        {
-            fast = true;
-            Debug.Log("play:" + play);
-            Debug.Log("stop:" + stop);
-            Debug.Log("fast:" + fast);
-            Debug.Log("reset:" + reset);
-        }
-    }
-
-    //リセットボタンが押されたときに実行
-    public void ResetEvent()
-    {
-        reset = true;
-        play = false;
-        stop = false;
-        fast = false;
-        Debug.Log("play:" + play);
-        Debug.Log("stop:" + stop);
-        Debug.Log("fast:" + fast);
-        Debug.Log("reset:" + reset);
     }
 }

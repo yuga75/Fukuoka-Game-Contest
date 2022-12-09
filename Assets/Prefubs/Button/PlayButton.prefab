@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7644276553123523048}
   - component: {fileID: 7631959416076516332}
-  - component: {fileID: -3796570345885444795}
   - component: {fileID: 508941223542322720}
+  - component: {fileID: -9177466399667671389}
   m_Layer: 0
   m_Name: PlayButton
   m_TagString: Untagged
@@ -86,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3796570345885444795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4359065888513159350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d175215b16265474ba001732fb7614bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &508941223542322720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,9 +103,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: -3796570345885444795}
-          m_TargetAssemblyTypeName: ControllButton, Assembly-CSharp
-          m_MethodName: PlayEvent
+        - m_Target: {fileID: -9177466399667671389}
+          m_TargetAssemblyTypeName: MainEvent, Assembly-CSharp
+          m_MethodName: ResetEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -127,3 +115,16 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &-9177466399667671389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4359065888513159350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269c1e7c30bc990438526b8d418c56a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cb: {fileID: 0}
