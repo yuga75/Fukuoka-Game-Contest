@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainEvent : MonoBehaviour
 {
     private GameObject ControllButtonObject;
-    [SerializeField] private ControllButton cb;
+    [SerializeField] public ControllButton cb;
 
     private void Start()
     {

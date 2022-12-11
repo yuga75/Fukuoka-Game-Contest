@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public Vector2 prePosition;
+    public Vector3 prePosition;
+
+
 
     /// <summary>
     /// ドラッグ開始時に呼び出される
@@ -53,6 +56,6 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     void Update()
     {
-        Debug.Log(gameObject.transform.position);
+        //Debug.Log(gameObject.transform.position);
     }
 }

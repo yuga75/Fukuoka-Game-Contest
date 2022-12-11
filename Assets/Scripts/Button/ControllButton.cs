@@ -20,7 +20,7 @@ public class ControllButton : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         //resetは5秒経過でfalseにする。
         if (reset == true)
