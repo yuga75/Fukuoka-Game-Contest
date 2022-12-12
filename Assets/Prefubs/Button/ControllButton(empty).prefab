@@ -48,4 +48,4 @@ MonoBehaviour:
   stop: 0
   fast: 0
   reset: 0
-  GameClear: {fileID: 9186956689381814365, guid: 55b070fdb2f477e4386dcc5719d07b40, type: 3}
+  GameClear: {fileID: 5421409411353108375, guid: 3ec4be1a9bef52c46a9f04ee5b4ade5e, type: 3}

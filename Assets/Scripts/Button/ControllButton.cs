@@ -12,7 +12,7 @@ public class ControllButton : MonoBehaviour
     public bool reset = false;
     private float ResetCount = 0.0f;
     private float ResetLimit = 5.0f;
-    [SerializeField] Image GameClear;
+    [SerializeField] GameObject GameClear;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,7 @@ public class ControllButton : MonoBehaviour
             }
         }
         //ステージが終了したらplayとfastをfalseにする。
-        if(GameClear.enabled == true)
+        if(GameClear.activeSelf == true)
         {
             play = false;
             fast = false;

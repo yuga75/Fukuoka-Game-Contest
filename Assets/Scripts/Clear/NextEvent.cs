@@ -1,25 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ClearEvent : MonoBehaviour
+public class NextEvent : MonoBehaviour
 {
-    [SerializeField] GameObject GameClear;
-
     // Start is called before the first frame update
     void Start()
     {
-        transform.SetAsLastSibling();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (ÉQÅ[ÉÄÇÉNÉäÉAÇµÇΩÇ©îªíË)
-        {
-            GameClear.SetActive(true)
-        }*/
+      
+    }
+
+    public void NextScene()
+    {
+        SceneManager.LoadScene("hoge", LoadSceneMode.Single);
     }
 }
