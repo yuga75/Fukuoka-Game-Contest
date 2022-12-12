@@ -244,7 +244,20 @@ public class PlayerTest : MonoBehaviour
         if (stopJudge == true)
         {
             /*-----ここから通常床の処理-----*/
-            if (col.gameObject.tag == "NormalFloor"
+            if ((col.gameObject.tag == "NormalFloor"
+                || col.gameObject.tag == "TurnUpOff"
+                || col.gameObject.tag == "TurnDownOff"
+                || col.gameObject.tag == "TurnRightOff"
+                || col.gameObject.tag == "TurnLeftOff"
+                || col.gameObject.tag == "DayOff"
+                || col.gameObject.tag == "Warp1_1Off"
+                || col.gameObject.tag == "Warp1_2Off"
+                || col.gameObject.tag == "Warp2_1Off"
+                || col.gameObject.tag == "Warp2_2Off"
+                || col.gameObject.tag == "Warp3_1Off"
+                || col.gameObject.tag == "Warp3_2Off"
+                || col.gameObject.tag == "HoleOff"
+                || col.gameObject.tag == "StopOff")
                 && col.gameObject.tag != "Enemy")
             {
                 stopJudge = false;
@@ -258,16 +271,14 @@ public class PlayerTest : MonoBehaviour
                 if (count == 50)
                 {
                     //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "HumanUp"
-                       || this.gameObject.tag == "HumanDown"
+                    if (this.gameObject.tag == "HumanDown"
                        || this.gameObject.tag == "HumanRight"
                        || this.gameObject.tag == "HumanLeft"
                       )
                     {
                         sr.sprite = humanUp;
                     }
-                    else if (this.gameObject.tag == "WolfUp"
-                            || this.gameObject.tag == "WolfDown"
+                    else if (this.gameObject.tag == "WolfDown"
                             || this.gameObject.tag == "WolfRight"
                             || this.gameObject.tag == "WolfLeft"
                             )
@@ -279,6 +290,12 @@ public class PlayerTest : MonoBehaviour
                     direction = "Up";
                     this.tag = playerState + direction;
                     Debug.Log("TurnUp" + direction);
+                }
+
+                if(this.gameObject.tag == "HumanUp"
+                    || this.gameObject.tag == "WolfUp")
+                {
+                    stopJudge = false;
                 }
 
                 if (stopJudge == false)
@@ -300,7 +317,6 @@ public class PlayerTest : MonoBehaviour
                 {
                     //FixedUpdateで一秒を計測するために50回カウントを行う
                     if (this.gameObject.tag == "HumanUp"
-                       || this.gameObject.tag == "HumanDown"
                        || this.gameObject.tag == "HumanRight"
                        || this.gameObject.tag == "HumanLeft"
                        )
@@ -308,7 +324,6 @@ public class PlayerTest : MonoBehaviour
                         sr.sprite = humanDown;
                     }
                     else if (this.gameObject.tag == "WolfUp"
-                            || this.gameObject.tag == "WolfDown"
                             || this.gameObject.tag == "WolfRight"
                             || this.gameObject.tag == "WolfLeft"
                             )
@@ -320,6 +335,12 @@ public class PlayerTest : MonoBehaviour
                     direction = "Down";
                     this.tag = playerState + direction;
                     Debug.Log("TurnDown" + direction);
+                }
+
+                if(this.gameObject.tag == "HumanDown"
+                    || this.gameObject.tag == "WolfDown")
+                {
+                    stopJudge = false;
                 }
 
                 if (stopJudge == false)
@@ -342,7 +363,6 @@ public class PlayerTest : MonoBehaviour
                     //FixedUpdateで一秒を計測するために50回カウントを行う
                     if (this.gameObject.tag == "HumanUp"
                        || this.gameObject.tag == "HumanDown"
-                       || this.gameObject.tag == "HumanRight"
                        || this.gameObject.tag == "HumanLeft"
                        )
                     {
@@ -350,7 +370,6 @@ public class PlayerTest : MonoBehaviour
                     }
                     else if (this.gameObject.tag == "WolfUp"
                             || this.gameObject.tag == "WolfDown"
-                            || this.gameObject.tag == "WolfRight"
                             || this.gameObject.tag == "WolfLeft"
                             )
                     {
@@ -361,6 +380,12 @@ public class PlayerTest : MonoBehaviour
                     direction = "Right";
                     this.tag = playerState + direction;
                     Debug.Log("TurnRight" + direction);
+                }
+
+                if(this.gameObject.tag == "HumanRight"
+                    || this.gameObject.tag == "WolfRight")
+                {
+                    stopJudge = false;
                 }
 
                 if (stopJudge == false)
@@ -384,7 +409,6 @@ public class PlayerTest : MonoBehaviour
                     if (this.gameObject.tag == "HumanUp"
                        || this.gameObject.tag == "HumanDown"
                        || this.gameObject.tag == "HumanRight"
-                       || this.gameObject.tag == "HumanLeft"
                        )
                     {
                         sr.sprite = humanLeft;
@@ -392,7 +416,6 @@ public class PlayerTest : MonoBehaviour
                     else if (this.gameObject.tag == "WolfUp"
                             || this.gameObject.tag == "WolfDown"
                             || this.gameObject.tag == "WolfRight"
-                            || this.gameObject.tag == "WolfLeft"
                             )
                     {
                         sr.sprite = wolfLeft;
@@ -402,6 +425,12 @@ public class PlayerTest : MonoBehaviour
                     direction = "Left";
                     this.tag = playerState + direction;
                     Debug.Log("TurnLeft" + direction);
+                }
+
+                if(this.gameObject.tag == "HumanLeft"
+                    || this.gameObject.tag == "WolfLeft")
+                {
+                    stopJudge = false;
                 }
 
                 if (stopJudge == false)
