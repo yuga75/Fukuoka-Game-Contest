@@ -32,7 +32,6 @@ TagManager:
   - TurnRightOff
   - TurnLeftOn
   - TurnLeftOff
-  - Enemy
   - NormalFloor
   - GoalHuman
   - GoalWolf
@@ -50,6 +49,10 @@ TagManager:
   - WolfFailed
   - Background
   - ObstacleFloor
+  - EnemyUp
+  - EnemyDown
+  - EnemyRight
+  - EnemyLeft
   layers:
   - Default
   - TransparentFX

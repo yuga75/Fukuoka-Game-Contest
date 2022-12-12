@@ -4,23 +4,21 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerTest : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     MainEvent mainEvent;
-    public DragDropScript dropScript;
-    public GameObject player;   //(操作)移動したいオブジェクトを設定
+    public GameObject enemy;   //(操作)移動したいオブジェクトを設定
     Vector3 movePosition;　//移動する距離を格納
     public int speed = 1;　//1マス毎に移動するスピード
     public Vector3 moveY = new Vector3(0, 1, 0);　//(1マス毎の)Y軸の移動距離
     public Vector3 moveX = new Vector3(1, 0, 0);　//(1マス毎の)X軸の移動距離
-    bool moveJudge; //移動中の判定
-    bool stopJudge;
+    [SerializeField] bool moveJudge; //移動中の判定
+    [SerializeField] bool stopJudge;
     string startTag;
     public string direction;
-    public string playerState;
+    public string enemyState;
     public Vector3 firstPosition;
     public Vector3 transPosition;
-    Vector3 tmp;
 
     int count = 0;
     float rotateSpeed = 7.2f;
@@ -56,30 +54,26 @@ public class PlayerTest : MonoBehaviour
     MainEvent fastButton;
     MainEvent resetButton;
 
-    public Sprite humanUp;      //人間上向き画像
-    public Sprite humanDown;    //人間下向き画像
-    public Sprite humanRight;   //人間右向き画像
-    public Sprite humanLeft;    //人間左向き画像
-    public Sprite humanGoal;    //人間ゴール画像
-    public Sprite humanOut;     //人間失敗画像
-    public Sprite wolfUp;       //狼上向き画像
-    public Sprite wolfDown;     //狼下向き画像
-    public Sprite wolfRight;    //狼右向き画像
-    public Sprite wolfLeft;     //狼左向き画像
-    public Sprite wolfGoal;     //狼ゴール画像
-    public Sprite wolfOut;      //狼失敗画像
+    public Sprite enemyUp;      //敵上向き画像
+    public Sprite enemyDown;    //敵下向き画像
+    public Sprite enemyRight;   //敵右向き画像
+    public Sprite enemyLeft;    //敵左向き画像
     // 画像描画用のコンポーネント
     SpriteRenderer sr;
 
-    public GameObject Enemy;
-    Enemy enemy;
+    public GameObject ObstacleFloor;
+    public GameObject StopFloor;
+
+    public GameObject Player;
+    PlayerTest playerTest;
 
     void Start()
     {
+        enemyState = "Noon";
         startTag = this.gameObject.tag;
         moveJudge = false; //⑤初期設定
         sr = gameObject.GetComponent<SpriteRenderer>();
-        firstPosition = player.transform.position;
+        firstPosition = enemy.transform.position;
 
         PlayButton = GameObject.Find("PlayButton");
         playButton = PlayButton.GetComponent<MainEvent>();
@@ -90,55 +84,34 @@ public class PlayerTest : MonoBehaviour
         ResetButton = GameObject.Find("ResetButton");
         resetButton = ResetButton.GetComponent<MainEvent>();
 
-        Enemy = GameObject.Find("Enemy");
-        enemy = Enemy.GetComponent<Enemy>();
+        ObstacleFloor = GameObject.Find("ObstacleFloor");
+        StopFloor = GameObject.Find("StopFloor");
 
-        if (this.gameObject.tag == "HumanUp")
+        Player = GameObject.Find("Player");
+        playerTest = Player.GetComponent<PlayerTest>();
+
+        //Player = GameObject.Find("Player");
+        //playerTest = Player.GetComponent<PlayerTest>();
+
+        if (this.gameObject.tag == "EnemyUp")
         {
-            playerState = "Human";
-            sr.sprite = humanUp;
+            sr.sprite = enemyUp;
             direction = "Up";
         }
-        else if (this.gameObject.tag == "WolfUp")
+
+        else if (this.gameObject.tag == "EnemyDown")
         {
-            playerState = "Wolf";
-            sr.sprite = wolfUp;
-            direction = "Up";
-        }
-        else if (this.gameObject.tag == "HumanDown")
-        {
-            playerState = "Human";
-            sr.sprite = humanDown;
+            sr.sprite = enemyDown;
             direction = "Down";
         }
-        else if (this.gameObject.tag == "WolfDown")
+        else if (this.gameObject.tag == "EnemyRight")
         {
-            playerState = "Wolf";
-            sr.sprite = wolfDown;
-            direction = "Down";
-        }
-        else if (this.gameObject.tag == "HumanRight")
-        {
-            playerState = "Human";
-            sr.sprite = humanRight;
+            sr.sprite = enemyRight;
             direction = "Right";
         }
-        else if (this.gameObject.tag == "WolfRight")
+        else if (this.gameObject.tag == "EnemyLeft")
         {
-            playerState = "Wolf";
-            sr.sprite = wolfRight;
-            direction = "Right";
-        }
-        else if (this.gameObject.tag == "HumanLeft")
-        {
-            playerState = "Human";
-            sr.sprite = humanLeft;
-            direction = "Left";
-        }
-        else if (this.gameObject.tag == "WolfLeft")
-        {
-            playerState = "Wolf";
-            sr.sprite = wolfLeft;
+            sr.sprite = enemyLeft;
             direction = "Left";
         }
 
@@ -155,84 +128,56 @@ public class PlayerTest : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("Player" + playButton.cb.play);
         Time.timeScale = 1;
         //移動場所設定
         if (moveJudge == false && stopJudge == false)
         {
             if (direction == "Up")
             {
-                if (playerState == "Human")
-                {
-                    sr.sprite = humanUp;
-                }
-                else if (playerState == "Wolf")
-                {
-                    sr.sprite = wolfUp;
-                }
-                movePosition = player.transform.position + moveY;  //movePositionに移動する距離を格納
+                sr.sprite = enemyUp;
+                movePosition = enemy.transform.position + moveY;  //movePositionに移動する距離を格納
                 moveJudge = true;  //moveButtonJudge = trueにして、移動を制限する
             }
             if (direction == "Down")
             {
-                if (playerState == "Human")
-                {
-                    sr.sprite = humanDown;
-                }
-                else if (playerState == "Wolf")
-                {
-                    sr.sprite = wolfDown;
-                }
-                movePosition = player.transform.position + -moveY;
+
+                sr.sprite = enemyDown;
+                movePosition = enemy.transform.position + -moveY;
                 moveJudge = true;
+
             }
             if (direction == "Right")
             {
-                if (playerState == "Human")
-                {
-                    sr.sprite = humanRight;
-                }
-                else if (playerState == "Wolf")
-                {
-                    sr.sprite = wolfRight;
-                }
-                movePosition = player.transform.position + moveX;
+
+                sr.sprite = enemyRight;
+                movePosition = enemy.transform.position + moveX;
                 moveJudge = true;
             }
             if (direction == "Left")
             {
-                if (playerState == "Human")
-                {
-                    sr.sprite = humanLeft;
-                }
-                else if (playerState == "Wolf")
-                {
-                    sr.sprite = wolfLeft;
-                }
-                movePosition = player.transform.position + -moveX;
+
+                sr.sprite = enemyLeft;
+                movePosition = enemy.transform.position + -moveX;
                 moveJudge = true;
             }
         }
 
-        if (enemy.enemyState == "Noon")
+        if (playerTest.playerState == "Human")
         {
-            playerState = "Human";
+            enemyState = "Noon";
         }
         else
         {
-            playerState = "Wolf";
+            enemyState = "Night";
         }
-
-        tmp = GameObject.Find("Player").transform.position;
 
         if (stopJudge == false)
         {
-            player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
         }
 
-
         //指定した場所にオブジェクトが移動すると、再度移動が可能になる
-        if (player.transform.position == movePosition)
+        if (enemy.transform.position == movePosition)
         {
             moveJudge = false;
             stopJudge = true;
@@ -244,8 +189,7 @@ public class PlayerTest : MonoBehaviour
         if (stopJudge == true)
         {
             /*-----ここから通常床の処理-----*/
-            if (col.gameObject.tag == "NormalFloor"
-                && col.gameObject.tag != "Enemy")
+            if (col.gameObject.tag == "NormalFloor")
             {
                 stopJudge = false;
             }
@@ -255,35 +199,28 @@ public class PlayerTest : MonoBehaviour
             /*-----ここから回転床の処理-----*/
             if (col.gameObject.tag == "TurnUpOn")
             {
+                Debug.Log("Hit");
                 if (count == 50)
                 {
                     //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "HumanUp"
-                       || this.gameObject.tag == "HumanDown"
-                       || this.gameObject.tag == "HumanRight"
-                       || this.gameObject.tag == "HumanLeft"
+                    if (this.gameObject.tag == "EnemyUp"
+                       || this.gameObject.tag == "EnemyDown"
+                       || this.gameObject.tag == "EnemyRight"
+                       || this.gameObject.tag == "EnemyLeft"
                       )
                     {
-                        sr.sprite = humanUp;
-                    }
-                    else if (this.gameObject.tag == "WolfUp"
-                            || this.gameObject.tag == "WolfDown"
-                            || this.gameObject.tag == "WolfRight"
-                            || this.gameObject.tag == "WolfLeft"
-                            )
-                    {
-                        sr.sprite = wolfUp;
+                        sr.sprite = enemyUp;
                     }
                     stopJudge = false;
                     count = 0;
                     direction = "Up";
-                    this.tag = playerState + direction;
+                    this.tag = "Enemy" + direction;
                     Debug.Log("TurnUp" + direction);
                 }
 
                 if (stopJudge == false)
                 {
-                    movePosition = player.transform.position + moveY;  //movePositionに移動する距離を格納
+                    movePosition = enemy.transform.position + moveY;  //movePositionに移動する距離を格納
                     moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
                 }
                 else if (moveJudge == false)
@@ -299,32 +236,24 @@ public class PlayerTest : MonoBehaviour
                 if (count == 50)
                 {
                     //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "HumanUp"
-                       || this.gameObject.tag == "HumanDown"
-                       || this.gameObject.tag == "HumanRight"
-                       || this.gameObject.tag == "HumanLeft"
+                    if (this.gameObject.tag == "EnemyUp"
+                       || this.gameObject.tag == "EnemyDown"
+                       || this.gameObject.tag == "EnemyRight"
+                       || this.gameObject.tag == "EnemyLeft"
                        )
                     {
-                        sr.sprite = humanDown;
-                    }
-                    else if (this.gameObject.tag == "WolfUp"
-                            || this.gameObject.tag == "WolfDown"
-                            || this.gameObject.tag == "WolfRight"
-                            || this.gameObject.tag == "WolfLeft"
-                            )
-                    {
-                        sr.sprite = wolfDown;
+                        sr.sprite = enemyDown;
                     }
                     stopJudge = false;
                     count = 0;
                     direction = "Down";
-                    this.tag = playerState + direction;
+                    this.tag = "Enemy" + direction;
                     Debug.Log("TurnDown" + direction);
                 }
 
                 if (stopJudge == false)
                 {
-                    movePosition = player.transform.position + -moveY;  //movePositionに移動する距離を格納
+                    movePosition = enemy.transform.position + -moveY;  //movePositionに移動する距離を格納
                     moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
                 }
                 else if (moveJudge == false)
@@ -340,32 +269,24 @@ public class PlayerTest : MonoBehaviour
                 if (count == 50)
                 {
                     //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "HumanUp"
-                       || this.gameObject.tag == "HumanDown"
-                       || this.gameObject.tag == "HumanRight"
-                       || this.gameObject.tag == "HumanLeft"
+                    if (this.gameObject.tag == "EnemyUp"
+                       || this.gameObject.tag == "EnemyDown"
+                       || this.gameObject.tag == "EnemyRight"
+                       || this.gameObject.tag == "EnemyLeft"
                        )
                     {
-                        sr.sprite = humanRight;
-                    }
-                    else if (this.gameObject.tag == "WolfUp"
-                            || this.gameObject.tag == "WolfDown"
-                            || this.gameObject.tag == "WolfRight"
-                            || this.gameObject.tag == "WolfLeft"
-                            )
-                    {
-                        sr.sprite = wolfRight;
+                        sr.sprite = enemyRight;
                     }
                     stopJudge = false;
                     count = 0;
                     direction = "Right";
-                    this.tag = playerState + direction;
+                    this.tag = "Enemy" + direction;
                     Debug.Log("TurnRight" + direction);
                 }
 
                 if (stopJudge == false)
                 {
-                    movePosition = player.transform.position + moveX;  //movePositionに移動する距離を格納
+                    movePosition = enemy.transform.position + moveX;  //movePositionに移動する距離を格納
                     moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
                 }
                 else if (moveJudge == false)
@@ -381,32 +302,24 @@ public class PlayerTest : MonoBehaviour
                 if (count == 50)
                 {
                     //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "HumanUp"
-                       || this.gameObject.tag == "HumanDown"
-                       || this.gameObject.tag == "HumanRight"
-                       || this.gameObject.tag == "HumanLeft"
+                    if (this.gameObject.tag == "EnemyUp"
+                       || this.gameObject.tag == "EnemyDown"
+                       || this.gameObject.tag == "EnemyRight"
+                       || this.gameObject.tag == "EnemyLeft"
                        )
                     {
-                        sr.sprite = humanLeft;
-                    }
-                    else if (this.gameObject.tag == "WolfUp"
-                            || this.gameObject.tag == "WolfDown"
-                            || this.gameObject.tag == "WolfRight"
-                            || this.gameObject.tag == "WolfLeft"
-                            )
-                    {
-                        sr.sprite = wolfLeft;
+                        sr.sprite = enemyLeft;
                     }
                     stopJudge = false;
                     count = 0;
                     direction = "Left";
-                    this.tag = playerState + direction;
+                    this.tag = enemyState + direction;
                     Debug.Log("TurnLeft" + direction);
                 }
 
                 if (stopJudge == false)
                 {
-                    movePosition = player.transform.position + -moveX;  //movePositionに移動する距離を格納
+                    movePosition = enemy.transform.position + -moveX;  //movePositionに移動する距離を格納
                     moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
                 }
                 else if (moveJudge == false)
@@ -423,17 +336,17 @@ public class PlayerTest : MonoBehaviour
             if (col.gameObject.tag == "DayOn")
             {
                 Debug.Log("HitDay");
-                if (playerState == "Human")
+                if (enemyState == "Noon")
                 {
-                    playerState = "Wolf";
-                    this.tag = playerState + direction;
-                    Debug.Log(playerState);
+                    enemyState = "Night";
+                    this.tag = "Enemy" + direction;
+                    Debug.Log(enemyState);
                 }
                 else
                 {
-                    playerState = "Human";
-                    this.tag = playerState + direction;
-                    Debug.Log(playerState);
+                    enemyState = "Noon";
+                    this.tag = "Enemy" + direction;
+                    Debug.Log(enemyState);
                 }
                 stopJudge = false;
             }
@@ -453,19 +366,19 @@ public class PlayerTest : MonoBehaviour
                 {
                     if (direction == "Up")
                     {
-                        movePosition = player.transform.position + moveY;
+                        movePosition = enemy.transform.position + moveY;
                     }
                     else if (direction == "Down")
                     {
-                        movePosition = player.transform.position + -moveY;
+                        movePosition = enemy.transform.position + -moveY;
                     }
                     else if (direction == "Right")
                     {
-                        movePosition = player.transform.position + moveX;
+                        movePosition = enemy.transform.position + moveX;
                     }
                     else
                     {
-                        movePosition = player.transform.position + -moveX;
+                        movePosition = enemy.transform.position + -moveX;
                     }
                     moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
                 }
@@ -496,7 +409,7 @@ public class PlayerTest : MonoBehaviour
                 if (stopJudge == true)
                 {
                     stopJudge = false;
-                    player.gameObject.transform.position = warp1_2;
+                    enemy.gameObject.transform.position = warp1_2;
                     Debug.Log("Hit1_1");
                 }
                 else
@@ -509,7 +422,7 @@ public class PlayerTest : MonoBehaviour
                 if (stopJudge == true)
                 {
                     stopJudge = false;
-                    player.gameObject.transform.position = warp1_1;
+                    enemy.gameObject.transform.position = warp1_1;
                     Debug.Log("Hit1_2");
                 }
                 else
@@ -523,7 +436,7 @@ public class PlayerTest : MonoBehaviour
                 if (stopJudge == true)
                 {
                     stopJudge = false;
-                    player.gameObject.transform.position = warp2_2;
+                    enemy.gameObject.transform.position = warp2_2;
                     Debug.Log("Hit2_1");
                 }
                 else
@@ -536,7 +449,7 @@ public class PlayerTest : MonoBehaviour
                 if (stopJudge == true)
                 {
                     stopJudge = false;
-                    player.gameObject.transform.position = warp2_1;
+                    enemy.gameObject.transform.position = warp2_1;
                     Debug.Log("Hit2_2");
                 }
                 else
@@ -550,7 +463,7 @@ public class PlayerTest : MonoBehaviour
                 if (stopJudge == true)
                 {
                     stopJudge = false;
-                    player.gameObject.transform.position = warp3_2;
+                    enemy.gameObject.transform.position = warp3_2;
                     Debug.Log("Hit3_1");
                 }
                 else
@@ -563,7 +476,7 @@ public class PlayerTest : MonoBehaviour
                 if (stopJudge == true)
                 {
                     stopJudge = false;
-                    player.gameObject.transform.position = warp3_1;
+                    enemy.gameObject.transform.position = warp3_1;
                     Debug.Log("Hit3_2");
                 }
                 else
@@ -573,94 +486,87 @@ public class PlayerTest : MonoBehaviour
             }
             /*-----ここまでワープ床の処理-----*/
 
+
             /*-----ここからゴール床の処理-----*/
             if (col.gameObject.tag == "GoalHuman")
             {
-                if (playerState == "Human")
-                {
-                    StartCoroutine(Cleared());
-                }
-                else
-                {
-                    StartCoroutine(Failed());
-                }
-            }
-            else if (col.gameObject.tag == "GoalWolf")
-            {
-                if (playerState == "Human")
-                {
-                    StartCoroutine(Failed());
-                }
-                else
-                {
-                    StartCoroutine(Cleared());
-                }
+                stopJudge = false;
             }
             /*-----ここまでゴール床の処理-----*/
         }
+
 
         /*-----ここから通行止め床の処理-----*/
         if (col.gameObject.tag == "StopOn")
         {
             Debug.Log("HitStop");
-            if (playerState == "Human")
-            {
-                stopJudge = true;
-                movePosition = player.transform.position;
-                StartCoroutine(Failed());
-            }
-            else
+            if (enemyState == "Night")
             {
                 stopJudge = false;
             }
         }
         /*-----ここから通行止め床の処理-----*/
 
-        /*-----ここから障害物・敵の処理-----*/
-        if (col.gameObject.tag == "ObstacleFloor"
-            || col.gameObject.tag == "EnemyUp"
-            || col.gameObject.tag == "EnemyDown"
-            || col.gameObject.tag == "EnemyRight"
-            || col.gameObject.tag == "EnemyLeft"
+
+        /*-----ここからプレイヤーの処理-----*/
+        if (col.gameObject.tag == "HumanUp"
+            || col.gameObject.tag == "HumanDown"
+            || col.gameObject.tag == "HumanRight"
+            || col.gameObject.tag == "HumanLeft"
+            || col.gameObject.tag == "WolfUp"
+            || col.gameObject.tag == "WolfDown"
+            || col.gameObject.tag == "WolfRight"
+            || col.gameObject.tag == "WolfLeft"
             )
         {
             stopJudge = true;
-            movePosition = tmp;
-            Debug.Log("HitObstacle");
-
+            movePosition = enemy.transform.position;
+            Debug.Log("HitPlayer");
             StartCoroutine(Failed());
         }
-        /*-----ここまで障害物・敵の処理-----*/
+        /*-----ここまでプレイヤ―の処理-----*/
     }
 
-    IEnumerator Cleared()
+    void OnTriggerEnter2D(Collider2D col)
     {
-        yield return new WaitForSeconds(1);
-        if (playerState == "Human")
+        /*-----ここから障害物床の処理-----*/
+        if (col.gameObject.tag == "ObstacleFloor")
         {
-            sr.sprite = humanGoal;
+            if (direction == "Up")
+            {
+                direction = "Down";
+                sr.sprite = enemyDown;
+                movePosition = enemy.transform.position + -moveY;
+            }
+            else if (direction == "Down")
+            {
+                direction = "Up";
+                sr.sprite = enemyUp;
+                movePosition = enemy.transform.position + moveY;
+            }
+            else if (direction == "Right")
+            {
+                direction = "Left";
+                sr.sprite = enemyLeft;
+                movePosition = enemy.transform.position + -moveX;
+            }
+            else if (direction == "Left")
+            {
+                direction = "Right";
+                sr.sprite = enemyRight;
+                movePosition = enemy.transform.position + moveX;
+            }
+            stopJudge = false;
         }
-        else
-        {
-            sr.sprite = wolfGoal;
-        }
-        yield return new WaitForSeconds(2);
+        /*-----ここまで障害物床の処理-----*/
     }
 
     IEnumerator Failed()
     {
-        yield return new WaitForSeconds(1);
-        if (playerState == "Human")
-        {
-            sr.sprite = humanOut;
-        }
-        else
-        {
-            sr.sprite = wolfOut;
-        }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         StartCoroutine(Reset());
     }
+
     IEnumerator Reset()
     {
         //終わるまで待ってほしい処理を書く
