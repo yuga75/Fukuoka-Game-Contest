@@ -8,25 +8,30 @@ using TMPro;
 public class SaveManager : MonoBehaviour
 {
     private int stageNumber;
-    public string stage = "0";
+    public string stage = "0",LEVEL;
     public TextMeshProUGUI TextA;
     public void Click()
         {
-        TextA.text = $"{stage}";
+        
         //今持っているステージ番号を取得（if分岐を使って上書きされないようにするためです）
         //ステージが進むたびにstageNumberに入る数値が変化します。
         stageNumber = PlayerPrefs.GetInt("LEVEL");
             switch (stage)
             {
+                case "tutorial":
+                //チュートリアルが終わったときセーブの中身をリセットする
+                PlayerPrefs.DeleteAll();
+                
+                break;
                 case "1-1":
                     //初めてそのステージをクリアしたときだけif文の中に入ります。
                     if (stageNumber == 0)
                     {
                         //呼び出すときのキーを「LEVEL」にして、値を「1」として保存します。
                         PlayerPrefs.SetInt("LEVEL", 1);
-                    }
-                SceneManager.LoadScene("sampleB");
-                break;
+                        
+                }
+                    break;
                 case "1-2":
                     if (stageNumber == 1)
                     {
@@ -40,46 +45,64 @@ public class SaveManager : MonoBehaviour
                         PlayerPrefs.SetInt("LEVEL", 3);
                     }
                     break;
-                case "1-4":
+                case "story1":
                     if (stageNumber == 3)
                     {
                         PlayerPrefs.SetInt("LEVEL", 4);
                     }
                     break;
-                case "1-5":
+                case "1-4":
                     if (stageNumber == 4)
                     {
                         PlayerPrefs.SetInt("LEVEL", 5);
                     }
                     break;
-                case "1-6":
+                case "1-5":
                     if (stageNumber == 5)
                     {
                         PlayerPrefs.SetInt("LEVEL", 6);
                     }
                     break;
-                case "1-7":
+                case "1-6":
                     if (stageNumber == 6)
                     {
                         PlayerPrefs.SetInt("LEVEL", 7);
                     }
                     break;
-                case "1-8":
+                case "story2":
                     if (stageNumber == 7)
                     {
                         PlayerPrefs.SetInt("LEVEL", 8);
                     }
                     break;
-                case "1-9":
+                case "1-7":
                     if (stageNumber == 8)
                     {
                         PlayerPrefs.SetInt("LEVEL", 9);
                     }
                     break;
-                case "1-10":
+                case "1-8":
                     if (stageNumber == 9)
                     {
                         PlayerPrefs.SetInt("LEVEL", 10);
+                    }
+                    break;
+                case "1-9":
+                    if (stageNumber == 10)
+                    {
+                        PlayerPrefs.SetInt("LEVEL", 11);
+                    }
+                    break;
+                case "story3":
+                    if (stageNumber == 11)
+                    {
+                        PlayerPrefs.SetInt("STORY", 12);
+                    }
+                    break;
+                case "1-10":
+                    if (stageNumber == 12)
+                    {
+                        PlayerPrefs.SetInt("LEVEL", 13);
                     }
                     break;
         }
