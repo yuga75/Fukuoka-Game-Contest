@@ -9,19 +9,16 @@ public class SwitchImage : MonoBehaviour
     [SerializeField] private Sprite NightImage;
     [SerializeField] private Sprite DayImage;
 
-    private GameObject dayFloor;
-    private DayFloor df;
     // Start is called before the first frame update
     void Start()
     {
-        dayFloor = GameObject.Find("DayFloor (3)");
-        df = dayFloor.GetComponent<DayFloor>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (df.DayNightFlag == true)
+        if (DayFloor.instance.DayNightFlag == true)
         {
             CurrentImage.sprite = DayImage;
         }

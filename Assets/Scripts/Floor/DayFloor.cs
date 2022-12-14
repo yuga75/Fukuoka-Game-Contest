@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class DayFloor : MonoBehaviour
 {
+    public static DayFloor instance;
     private bool DayFlag = false;
     public bool DayNightFlag = true;
     private string ModeOn = "DayOn";
     private string ModeOff = "DayOff";
 
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     public void DayEvent(){
         Debug.Log("イベント検知");
@@ -28,7 +36,7 @@ public class DayFloor : MonoBehaviour
 
     public bool OnTriggerEnter2D(Collider2D other){
         Debug.Log("衝突");
-        if(other.name.Contains("Player")){
+        if(other.name.Contains("Enemy")){
             if(DayNightFlag == true){
                 DayNightFlag = false;
                 Debug.Log("夜");
