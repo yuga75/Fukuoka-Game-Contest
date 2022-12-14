@@ -46,15 +46,8 @@ public class PlayerTest : MonoBehaviour
     public Vector3 warp3_1;
     public Vector3 warp3_2;
 
-    public GameObject PlayButton;
-    public GameObject PauseButton;
-    public GameObject FastButton;
-    public GameObject ResetButton;
-
-    MainEvent playButton;
-    MainEvent pauseButton;
-    MainEvent fastButton;
-    MainEvent resetButton;
+    public GameObject ControllButton;
+    ControllButton controllButton;
 
     public Sprite humanUp;      //人間上向き画像
     public Sprite humanDown;    //人間下向き画像
@@ -81,14 +74,8 @@ public class PlayerTest : MonoBehaviour
         sr = gameObject.GetComponent<SpriteRenderer>();
         firstPosition = player.transform.position;
 
-        PlayButton = GameObject.Find("PlayButton");
-        playButton = PlayButton.GetComponent<MainEvent>();
-        PauseButton = GameObject.Find("PauseButton");
-        pauseButton = PauseButton.GetComponent<MainEvent>();
-        FastButton = GameObject.Find("FastButton");
-        fastButton = FastButton.GetComponent<MainEvent>();
-        ResetButton = GameObject.Find("ResetButton");
-        resetButton = ResetButton.GetComponent<MainEvent>();
+        ControllButton = GameObject.Find("ControllButton(empty)");
+        controllButton = ControllButton.GetComponent<ControllButton>();
 
         Enemy = GameObject.Find("Enemy");
         enemy = Enemy.GetComponent<Enemy>();
@@ -155,89 +142,93 @@ public class PlayerTest : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log("Player" + playButton.cb.play);
-        Time.timeScale = 1;
-        //移動場所設定
-        if (moveJudge == false && stopJudge == false)
+        if (controllButton.play == true)
         {
-            if (direction == "Up")
+            Time.timeScale = 1;
+            //移動場所設定
+            if (moveJudge == false && stopJudge == false)
             {
-                if (playerState == "Human")
+                if (direction == "Up")
                 {
-                    sr.sprite = humanUp;
+                    if (playerState == "Human")
+                    {
+                        sr.sprite = humanUp;
+                    }
+                    else if (playerState == "Wolf")
+                    {
+                        sr.sprite = wolfUp;
+                    }
+                    movePosition = player.transform.position + moveY;  //movePositionに移動する距離を格納
+                    moveJudge = true;  //moveButtonJudge = trueにして、移動を制限する
                 }
-                else if (playerState == "Wolf")
+                if (direction == "Down")
                 {
-                    sr.sprite = wolfUp;
+                    if (playerState == "Human")
+                    {
+                        sr.sprite = humanDown;
+                    }
+                    else if (playerState == "Wolf")
+                    {
+                        sr.sprite = wolfDown;
+                    }
+                    movePosition = player.transform.position + -moveY;
+                    moveJudge = true;
                 }
-                movePosition = player.transform.position + moveY;  //movePositionに移動する距離を格納
-                moveJudge = true;  //moveButtonJudge = trueにして、移動を制限する
+                if (direction == "Right")
+                {
+                    if (playerState == "Human")
+                    {
+                        sr.sprite = humanRight;
+                    }
+                    else if (playerState == "Wolf")
+                    {
+                        sr.sprite = wolfRight;
+                    }
+                    movePosition = player.transform.position + moveX;
+                    moveJudge = true;
+                }
+                if (direction == "Left")
+                {
+                    if (playerState == "Human")
+                    {
+                        sr.sprite = humanLeft;
+                    }
+                    else if (playerState == "Wolf")
+                    {
+                        sr.sprite = wolfLeft;
+                    }
+                    movePosition = player.transform.position + -moveX;
+                    moveJudge = true;
+                }
             }
-            if (direction == "Down")
+
+            if (enemy.enemyState == "Noon")
             {
-                if (playerState == "Human")
-                {
-                    sr.sprite = humanDown;
-                }
-                else if (playerState == "Wolf")
-                {
-                    sr.sprite = wolfDown;
-                }
-                movePosition = player.transform.position + -moveY;
-                moveJudge = true;
+                playerState = "Human";
             }
-            if (direction == "Right")
+            else
             {
-                if (playerState == "Human")
-                {
-                    sr.sprite = humanRight;
-                }
-                else if (playerState == "Wolf")
-                {
-                    sr.sprite = wolfRight;
-                }
-                movePosition = player.transform.position + moveX;
-                moveJudge = true;
+                playerState = "Wolf";
             }
-            if (direction == "Left")
+
+            tmp = GameObject.Find("Player").transform.position;
+
+            if (stopJudge == false)
             {
-                if (playerState == "Human")
-                {
-                    sr.sprite = humanLeft;
-                }
-                else if (playerState == "Wolf")
-                {
-                    sr.sprite = wolfLeft;
-                }
-                movePosition = player.transform.position + -moveX;
-                moveJudge = true;
+                player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
+            }
+
+
+            //指定した場所にオブジェクトが移動すると、再度移動が可能になる
+            if (player.transform.position == movePosition)
+            {
+                moveJudge = false;
+                stopJudge = true;
             }
         }
-
-        if (enemy.enemyState == "Noon")
-        {
-            playerState = "Human";
+        else if(controllButton.stop == true){
+            Time.timeScale = 0;
         }
-        else
-        {
-            playerState = "Wolf";
-        }
-
-        tmp = GameObject.Find("Player").transform.position;
-
-        if (stopJudge == false)
-        {
-            player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
-        }
-
-
-        //指定した場所にオブジェクトが移動すると、再度移動が可能になる
-        if (player.transform.position == movePosition)
-        {
-            moveJudge = false;
-            stopJudge = true;
-        }
-
     }
     void OnTriggerStay2D(Collider2D col)
     {

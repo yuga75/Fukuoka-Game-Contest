@@ -14,7 +14,7 @@ public class SwitchImage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dayFloor = GameObject.Find("DayFloor");
+        dayFloor = GameObject.Find("DayFloor (3)");
         df = dayFloor.GetComponent<DayFloor>();
     }
 
