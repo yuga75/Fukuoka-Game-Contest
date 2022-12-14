@@ -10,8 +10,8 @@ public class ControllButton : MonoBehaviour
     public bool stop = false;
     public bool fast = false;
     public bool reset = false;
-    private float ResetCount = 0.0f;
-    private float ResetLimit = 5.0f;
+    private float ResetCount = 0;
+    private float ResetLimit = 20;
     [SerializeField] GameObject GameClear;
 
     // Start is called before the first frame update
@@ -25,7 +25,7 @@ public class ControllButton : MonoBehaviour
         //resetは5秒経過でfalseにする。
         if (reset == true)
         {
-            ResetCount += Time.deltaTime;
+            ResetCount += 1;
             Debug.Log(ResetCount);
             if (ResetCount >= ResetLimit)
             {
@@ -34,7 +34,7 @@ public class ControllButton : MonoBehaviour
                 Debug.Log("stop:" + stop);
                 Debug.Log("fast:" + fast);
                 Debug.Log("reset:" + reset);
-                ResetCount = 0.0f;
+                ResetCount = 0;
             }
         }
         //ステージが終了したらplayとfastをfalseにする。
