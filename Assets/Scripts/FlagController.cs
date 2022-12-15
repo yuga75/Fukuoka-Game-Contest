@@ -33,10 +33,10 @@ public class FlagController : MonoBehaviour
       //テスト用
         if(Input.GetMouseButton(0))
         {
-            PlayerPrefs.SetInt("LEVEL",1);
-            Debug.Log("Set1");
+            PlayerPrefs.SetInt("LEVEL",3);
+            Debug.Log("Set3");
         }
-
+        //
         switch(FlagInt)
         {
             case  1:
