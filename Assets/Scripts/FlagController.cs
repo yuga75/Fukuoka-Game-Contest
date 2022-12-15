@@ -9,8 +9,8 @@ public class FlagController : MonoBehaviour
 
     void Start()
     {   //テスト用
-        //PlayerPrefs.SetInt("LEVEL",0);
-        //Debug.Log("Set0");
+        PlayerPrefs.SetInt("LEVEL",0);
+        Debug.Log("Set0");
 
         Stages[0].gameObject.SetActive(false);
         Stages[1].gameObject.SetActive(false);
@@ -30,13 +30,13 @@ public class FlagController : MonoBehaviour
 
     void Update()
     {
-/*      テスト用
+      //テスト用
         if(Input.GetMouseButton(0))
         {
             PlayerPrefs.SetInt("LEVEL",1);
             Debug.Log("Set1");
         }
-*/
+
         switch(FlagInt)
         {
             case  1:
