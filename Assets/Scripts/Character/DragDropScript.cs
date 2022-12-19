@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Vector3 prePosition;
-
+    public Vector3 playerPos;
 
 
     /// <summary>
@@ -25,7 +25,10 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position;
+        playerPos = Camera.main.ScreenToWorldPoint(eventData.position);
+        playerPos.z = 0;
+        transform.position = playerPos;
+
     }
 
     /// <summary>
