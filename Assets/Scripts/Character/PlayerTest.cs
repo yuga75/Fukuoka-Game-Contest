@@ -84,7 +84,7 @@ public class PlayerTest : MonoBehaviour
         Enemy = GameObject.Find("Enemy");
         enemy = Enemy.GetComponent<Enemy>();
 
-        firstPosition = this.gameObject.transform.position;
+        firstPosition = dropScript.currentPosition;
 
         if (this.gameObject.tag == "HumanUp")
         {
@@ -786,7 +786,7 @@ public class PlayerTest : MonoBehaviour
 
         //再開してから実行したい処理を書く
         //例：敵オブジェクトを破壊
-        this.gameObject.transform.position = dropScript.prePosition;
+        this.gameObject.transform.position = firstPosition;
         this.tag = startTag;
         Start();
         moveJudge = true;
