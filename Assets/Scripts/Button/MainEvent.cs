@@ -5,15 +5,15 @@ using UnityEngine;
 public class MainEvent : MonoBehaviour
 {
     private GameObject ControllButtonObject;
-    public ControllButton cb;
+    private ControllButton cb;
 
     private void Start()
     {
         ControllButtonObject = GameObject.Find("ControllButton(empty)");
         cb = ControllButtonObject.GetComponent<ControllButton>();
     }
-        //再生ボタンが押されたときに実行
-        public void PlayEvent()
+    //再生ボタンが押されたときに実行
+    public void PlayEvent()
     {
         cb.play = true;
         cb.stop = false;
