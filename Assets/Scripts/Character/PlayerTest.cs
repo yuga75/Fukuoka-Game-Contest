@@ -84,7 +84,7 @@ public class PlayerTest : MonoBehaviour
         Enemy = GameObject.Find("Enemy");
         enemy = Enemy.GetComponent<Enemy>();
 
-        firstPosition = dropScript.currentPosition;
+        firstPosition = this.gameObject.transform.position;
 
         if (this.gameObject.tag == "HumanUp")
         {
@@ -746,35 +746,36 @@ public class PlayerTest : MonoBehaviour
 
     IEnumerator Cleared()
     {
-        yield return new WaitForSeconds(1);
         if (playerState == "Human")
         {
-            this.gameObject.tag = "HumanGoal";
+            this.gameObject.tag = "HumanGoaled";
             sr.sprite = humanGoal;
             playerState = "Cleared";
         }
         else
         {
-            this.gameObject.tag = "WolfGoal";
+            this.gameObject.tag = "WolfGoaled";
             sr.sprite = wolfGoal;
             playerState = "Cleared";
         }
+        Time.timeScale = 0;
         yield return new WaitForSeconds(2);
         
     }
 
     IEnumerator Failed()
     {
-        yield return new WaitForSeconds(1);
         if (playerState == "humanFailed")
         {
             sr.sprite = humanOut;
+            direction = "";
         }
         else if(playerState == "wolfFailed")
         {
             sr.sprite = wolfOut;
+            direction = "";
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         StartCoroutine(Reset());
     }
     IEnumerator Reset()
@@ -785,7 +786,7 @@ public class PlayerTest : MonoBehaviour
 
         //再開してから実行したい処理を書く
         //例：敵オブジェクトを破壊
-        this.gameObject.transform.position = firstPosition;
+        this.gameObject.transform.position = dropScript.prePosition;
         this.tag = startTag;
         Start();
         moveJudge = true;

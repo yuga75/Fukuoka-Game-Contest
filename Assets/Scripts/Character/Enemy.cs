@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         startTag = this.gameObject.tag;
         moveJudge = false; //⑤初期設定
         sr = gameObject.GetComponent<SpriteRenderer>();
@@ -165,6 +166,11 @@ public class Enemy : MonoBehaviour
         if(enemyState == "Failed" && (playerTest.playerState == "humanFailed" || playerTest.playerState == "wolfFailed"))
         {
             StartCoroutine(Failed());
+        }
+
+        if(playerTest.playerState == "Cleared")
+        {
+            direction = "";
         }
     }
 
@@ -681,7 +687,9 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Failed()
     {
+        Time.timeScale = 0;
         yield return new WaitForSeconds(3);
+        Time.timeScale = 1;
         StartCoroutine(Reset());
     }
 
