@@ -72,7 +72,7 @@ public class PlayerTest : MonoBehaviour
 
     public GameObject clearImage;
 
-    void Start()
+    public void Start()
     {
         startTag = this.gameObject.tag;
         moveJudge = false; //⑤初期設定
@@ -84,9 +84,7 @@ public class PlayerTest : MonoBehaviour
         Enemy = GameObject.Find("Enemy");
         enemy = Enemy.GetComponent<Enemy>();
 
-        clearImage = GameObject.Find("ClearUI");
-
-        firstJudge = true;
+        firstPosition = dropScript.currentPosition;
 
         if (this.gameObject.tag == "HumanUp")
         {
@@ -150,8 +148,6 @@ public class PlayerTest : MonoBehaviour
 
     private void Update()
     {
-        firstPosition = dropScript.currentPosition;
-        currentPosition = this.gameObject.transform.position;
         if (controllButton.play == true
             && (playerState != "humanFailed" || playerState != "wolfFailed"))
         {
@@ -207,8 +203,7 @@ public class PlayerTest : MonoBehaviour
         //移動場所設定
         if (moveJudge == false 
             && stopJudge == false
-            && (playerState != "humanFailed" || playerState != "wolfFailed")
-            && firstJudge == false)
+            && (playerState != "humanFailed" || playerState != "wolfFailed"))
         {
             if (direction == "Up")
             {
@@ -230,31 +225,7 @@ public class PlayerTest : MonoBehaviour
                 movePosition = player.transform.position + -moveX;
                 moveJudge = true;
             }
-        }
 
-        if(firstJudge == true)
-        {
-            if (direction == "Up")
-            {
-                movePosition = currentPosition + moveY;  //movePositionに移動する距離を格納
-                moveJudge = true;  //moveButtonJudge = trueにして、移動を制限する
-            }
-            if (direction == "Down")
-            {
-                movePosition = currentPosition + -moveY;
-                moveJudge = true;
-            }
-            if (direction == "Right")
-            {
-                movePosition = currentPosition + moveX;
-                moveJudge = true;
-            }
-            if (direction == "Left")
-            {
-                movePosition = currentPosition + -moveX;
-                moveJudge = true;
-            }
-            firstJudge = false;
         }
 
         if (DayFloor.instance.DayNightFlag == true)

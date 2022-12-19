@@ -10,6 +10,8 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     public Vector3 currentPosition;
     public Vector3 playerPos;
 
+    public PlayerTest playerTest;
+
     void Start()
     {
     }
@@ -52,6 +54,7 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                 transform.position = hit.gameObject.transform.position;
                 currentPosition = hit.gameObject.transform.position;
                 flg = false;
+                playerTest.Start();
             }
         }
 

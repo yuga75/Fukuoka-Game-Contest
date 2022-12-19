@@ -127,8 +127,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prePosition: {x: 0, y: 0, z: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
   playerPos: {x: 0, y: 0, z: 0}
-  ControllButton: {fileID: 266977330688712160, guid: dddcbef7055e4df4190769992e8a91a0, type: 3}
+  playerTest: {fileID: 7941773323104760746}
 --- !u!114 &7941773323104760746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +147,7 @@ MonoBehaviour:
   speed: 1
   moveY: {x: 0, y: 1, z: 0}
   moveX: {x: 1, y: 0, z: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
   direction: 
   playerState: 
   firstPosition: {x: 0, y: 0, z: 0}
