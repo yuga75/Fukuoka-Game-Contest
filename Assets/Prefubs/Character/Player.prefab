@@ -162,10 +162,7 @@ MonoBehaviour:
   warp2_2: {x: 0, y: 0, z: 0}
   warp3_1: {x: 0, y: 0, z: 0}
   warp3_2: {x: 0, y: 0, z: 0}
-  PlayButton: {fileID: 4359065888513159350, guid: ec15e83151c2897449aceffd22486bab, type: 3}
-  PauseButton: {fileID: 4359065888513159350, guid: 54c0c5800ca7b46449cf95840d3cdaa8, type: 3}
-  FastButton: {fileID: 1348427361521728612, guid: ebadafc168d93074382c764d33e0d81f, type: 3}
-  ResetButton: {fileID: 7050358421121889927, guid: d7ec88a25c373434abf15d312ee4b9a9, type: 3}
+  ControllButton: {fileID: 266977330688712160, guid: dddcbef7055e4df4190769992e8a91a0, type: 3}
   humanUp: {fileID: 21300000, guid: e12cb950ab9f6ec45b9e744627951bc7, type: 3}
   humanDown: {fileID: 21300000, guid: 685920509c9e3994993373f1030827c0, type: 3}
   humanRight: {fileID: 21300000, guid: 68db1e3ebf622b94a829e887ae28d423, type: 3}
@@ -179,6 +176,7 @@ MonoBehaviour:
   wolfGoal: {fileID: 21300000, guid: 16670cd04547b5249ae2f4c3d2aaa8a7, type: 3}
   wolfOut: {fileID: 21300000, guid: 07d5d0429bf3f0c44846b69c4434b4b0, type: 3}
   Enemy: {fileID: 2381052554906082813, guid: b6c2f0741c1937b46b4db5090c8d6501, type: 3}
+  clearImage: {fileID: 5421409411353108375, guid: 3ec4be1a9bef52c46a9f04ee5b4ade5e, type: 3}
 --- !u!50 &1223097466318184492
 Rigidbody2D:
   serializedVersion: 4

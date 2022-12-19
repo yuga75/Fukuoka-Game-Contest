@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
@@ -44,16 +45,6 @@ public class Enemy : MonoBehaviour
     public Vector3 warp3_1;
     public Vector3 warp3_2;
 
-    public GameObject PlayButton;
-    public GameObject PauseButton;
-    public GameObject FastButton;
-    public GameObject ResetButton;
-
-    MainEvent playButton;
-    MainEvent pauseButton;
-    MainEvent fastButton;
-    MainEvent resetButton;
-
     public Sprite enemyUp;      //敵上向き画像
     public Sprite enemyDown;    //敵下向き画像
     public Sprite enemyRight;   //敵右向き画像
@@ -67,22 +58,18 @@ public class Enemy : MonoBehaviour
     public GameObject Player;
     PlayerTest playerTest;
 
+    public GameObject ControllButton;
+    ControllButton controllButton;
+
     void Start()
     {
-        enemyState = "Noon";
         startTag = this.gameObject.tag;
         moveJudge = false; //⑤初期設定
         sr = gameObject.GetComponent<SpriteRenderer>();
         firstPosition = enemy.transform.position;
 
-        PlayButton = GameObject.Find("PlayButton");
-        playButton = PlayButton.GetComponent<MainEvent>();
-        PauseButton = GameObject.Find("PauseButton");
-        pauseButton = PauseButton.GetComponent<MainEvent>();
-        FastButton = GameObject.Find("FastButton");
-        fastButton = FastButton.GetComponent<MainEvent>();
-        ResetButton = GameObject.Find("ResetButton");
-        resetButton = ResetButton.GetComponent<MainEvent>();
+        ControllButton = GameObject.Find("ControllButton(empty)");
+        controllButton = ControllButton.GetComponent<ControllButton>();
 
         ObstacleFloor = GameObject.Find("ObstacleFloor");
         StopFloor = GameObject.Find("StopFloor");
@@ -90,8 +77,6 @@ public class Enemy : MonoBehaviour
         Player = GameObject.Find("Player");
         playerTest = Player.GetComponent<PlayerTest>();
 
-        //Player = GameObject.Find("Player");
-        //playerTest = Player.GetComponent<PlayerTest>();
 
         if (this.gameObject.tag == "EnemyUp")
         {
@@ -126,11 +111,68 @@ public class Enemy : MonoBehaviour
         //warp3_2 = GameObject.Find("Warp3_2").transform.position;
     }
 
+    private void Update()
+    {
+        if(controllButton.play == true)
+        {
+            Time.timeScale = 1.0f;
+        }
+        else
+        {
+            Time.timeScale = 0.0f;
+        }
+
+        if ((stopJudge == true) && (count % 2 == 0))
+        {
+            if (controllButton.fast == true)
+            {
+                speed = 2;
+                rotateSpeed = 14.4f;
+            }
+            else
+            {
+                speed = 1;
+                rotateSpeed = 7.2f;
+            }
+        }
+        else if(stopJudge == false)
+        {
+            if (controllButton.fast == true)
+            {
+                speed = 2;
+                rotateSpeed = 14.4f;
+                _cycle = 0.125f;
+            }
+            else
+            {
+                speed = 1;
+                rotateSpeed = 7.2f;
+                _cycle = 0.25f;
+            }
+        }
+
+        if (controllButton.reset == true)
+        {
+            StartCoroutine(Reset());
+        }
+
+        if (playerTest.playerState == "humanFailed" || playerTest.playerState == "wolfFailed")
+        {
+            enemyState = "Failed";
+            enemy.transform.position = enemy.transform.position;
+        }
+
+        if(enemyState == "Failed" && (playerTest.playerState == "humanFailed" || playerTest.playerState == "wolfFailed"))
+        {
+            StartCoroutine(Failed());
+        }
+    }
+
     void FixedUpdate()
     {
-        Time.timeScale = 1;
         //移動場所設定
-        if (moveJudge == false && stopJudge == false)
+        if ((moveJudge == false && stopJudge == false)
+            && enemyState != "Failed")
         {
             if (direction == "Up")
             {
@@ -162,7 +204,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (playerTest.playerState == "Human")
+        if (DayFloor.instance.DayNightFlag == true)
         {
             enemyState = "Noon";
         }
@@ -171,7 +213,7 @@ public class Enemy : MonoBehaviour
             enemyState = "Night";
         }
 
-        if (stopJudge == false)
+            if (stopJudge == false)
         {
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
         }
@@ -179,356 +221,432 @@ public class Enemy : MonoBehaviour
         //指定した場所にオブジェクトが移動すると、再度移動が可能になる
         if (enemy.transform.position == movePosition)
         {
+            Debug.Log(stopJudge);
             moveJudge = false;
             stopJudge = true;
+            Debug.Log(stopJudge);
         }
-
     }
     void OnTriggerStay2D(Collider2D col)
     {
-        if (stopJudge == true)
+        if (controllButton.play == true
+            && enemyState != "Failed")
         {
-            /*-----ここから通常床の処理-----*/
-            if (col.gameObject.tag == "NormalFloor")
+            if (stopJudge == true)
             {
-                stopJudge = false;
-            }
-            /*-----ここまで通常床の処理-----*/
-
-
-            /*-----ここから回転床の処理-----*/
-            if (col.gameObject.tag == "TurnUpOn")
-            {
-                Debug.Log("Hit");
-                if (count == 50)
-                {
-                    //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "EnemyUp"
-                       || this.gameObject.tag == "EnemyDown"
-                       || this.gameObject.tag == "EnemyRight"
-                       || this.gameObject.tag == "EnemyLeft"
-                      )
-                    {
-                        sr.sprite = enemyUp;
-                    }
-                    stopJudge = false;
-                    count = 0;
-                    direction = "Up";
-                    this.tag = "Enemy" + direction;
-                    Debug.Log("TurnUp" + direction);
-                }
-
-                if (stopJudge == false)
-                {
-                    movePosition = enemy.transform.position + moveY;  //movePositionに移動する距離を格納
-                    moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
-                }
-                else if (moveJudge == false)
-                {
-                    gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
-                    count += 1;
-                    Debug.Log("TurnUp" + count);
-                }
-            }
-
-            if (col.gameObject.tag == "TurnDownOn")
-            {
-                if (count == 50)
-                {
-                    //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "EnemyUp"
-                       || this.gameObject.tag == "EnemyDown"
-                       || this.gameObject.tag == "EnemyRight"
-                       || this.gameObject.tag == "EnemyLeft"
-                       )
-                    {
-                        sr.sprite = enemyDown;
-                    }
-                    stopJudge = false;
-                    count = 0;
-                    direction = "Down";
-                    this.tag = "Enemy" + direction;
-                    Debug.Log("TurnDown" + direction);
-                }
-
-                if (stopJudge == false)
-                {
-                    movePosition = enemy.transform.position + -moveY;  //movePositionに移動する距離を格納
-                    moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
-                }
-                else if (moveJudge == false)
-                {
-                    gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
-                    count += 1;
-                    Debug.Log("TurnDown" + count);
-                }
-            }
-
-            if (col.gameObject.tag == "TurnRightOn")
-            {
-                if (count == 50)
-                {
-                    //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "EnemyUp"
-                       || this.gameObject.tag == "EnemyDown"
-                       || this.gameObject.tag == "EnemyRight"
-                       || this.gameObject.tag == "EnemyLeft"
-                       )
-                    {
-                        sr.sprite = enemyRight;
-                    }
-                    stopJudge = false;
-                    count = 0;
-                    direction = "Right";
-                    this.tag = "Enemy" + direction;
-                    Debug.Log("TurnRight" + direction);
-                }
-
-                if (stopJudge == false)
-                {
-                    movePosition = enemy.transform.position + moveX;  //movePositionに移動する距離を格納
-                    moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
-                }
-                else if (moveJudge == false)
-                {
-                    gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
-                    count += 1;
-                    Debug.Log("TurnRight" + count);
-                }
-            }
-
-            if (col.gameObject.tag == "TurnLeftOn")
-            {
-                if (count == 50)
-                {
-                    //FixedUpdateで一秒を計測するために50回カウントを行う
-                    if (this.gameObject.tag == "EnemyUp"
-                       || this.gameObject.tag == "EnemyDown"
-                       || this.gameObject.tag == "EnemyRight"
-                       || this.gameObject.tag == "EnemyLeft"
-                       )
-                    {
-                        sr.sprite = enemyLeft;
-                    }
-                    stopJudge = false;
-                    count = 0;
-                    direction = "Left";
-                    this.tag = enemyState + direction;
-                    Debug.Log("TurnLeft" + direction);
-                }
-
-                if (stopJudge == false)
-                {
-                    movePosition = enemy.transform.position + -moveX;  //movePositionに移動する距離を格納
-                    moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
-                }
-                else if (moveJudge == false)
-                {
-                    gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
-                    count += 1;
-                    Debug.Log("TurnLeft" + count);
-                }
-            }
-            /*-----ここまで回転床の処理-----*/
-
-
-            /*-----ここから昼夜床の処理-----*/
-            if (col.gameObject.tag == "DayOn")
-            {
-                Debug.Log("HitDay");
-                if (enemyState == "Noon")
-                {
-                    enemyState = "Night";
-                    this.tag = "Enemy" + direction;
-                    Debug.Log(enemyState);
-                }
-                else
-                {
-                    enemyState = "Noon";
-                    this.tag = "Enemy" + direction;
-                    Debug.Log(enemyState);
-                }
-                stopJudge = false;
-            }
-            /*-----ここまで昼夜床の処理-----*/
-
-
-            /*-----ここから落とし穴の処理-----*/
-            if (col.gameObject.tag == "HoleOn")
-            {
-                if (count == 50)
+                /*-----ここから通常床の処理-----*/
+                if ((col.gameObject.tag == "NormalFloor"
+                        || col.gameObject.tag == "TurnUpOff"
+                        || col.gameObject.tag == "TurnDownOff"
+                        || col.gameObject.tag == "TurnRightOff"
+                        || col.gameObject.tag == "TurnLeftOff"
+                        || col.gameObject.tag == "DayOn"
+                        || col.gameObject.tag == "DayOff"
+                        || col.gameObject.tag == "Warp1_1Off"
+                        || col.gameObject.tag == "Warp1_2Off"
+                        || col.gameObject.tag == "Warp2_1Off"
+                        || col.gameObject.tag == "Warp2_2Off"
+                        || col.gameObject.tag == "Warp3_1Off"
+                        || col.gameObject.tag == "Warp3_2Off"
+                        || col.gameObject.tag == "HoleOff"
+                        || col.gameObject.tag == "StopOff")
+                        )
                 {
                     stopJudge = false;
-                    count = 0;
+                }
+                /*-----ここまで通常床の処理-----*/
+
+
+                /*-----ここから回転床の処理-----*/
+                if (col.gameObject.tag == "TurnUpOn")
+                {
+                    Debug.Log("Hit");
+                    if (count == 50)
+                    {
+                        //FixedUpdateで一秒を計測するために50回カウントを行う
+                        if (this.gameObject.tag == "EnemyUp"
+                           || this.gameObject.tag == "EnemyDown"
+                           || this.gameObject.tag == "EnemyRight"
+                           || this.gameObject.tag == "EnemyLeft"
+                          )
+                        {
+                            sr.sprite = enemyUp;
+                        }
+                        stopJudge = false;
+                        count = 0;
+                        direction = "Up";
+                        this.tag = "Enemy" + direction;
+                        Debug.Log("TurnUp" + direction);
+                    }
+
+                    if (stopJudge == false)
+                    {
+                        movePosition = enemy.transform.position + moveY;  //movePositionに移動する距離を格納
+                        moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
+                    }
+                    else if (moveJudge == false)
+                    {
+                        gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
+                        if((controllButton.fast == true) && (count % 2 == 0))
+                        {
+                            count += 2;
+                        }
+                        else
+                        {
+                            count += 1;
+                        }
+                        Debug.Log("TurnUp" + count);
+                    }
                 }
 
-                if (stopJudge == false)
+                if (col.gameObject.tag == "TurnDownOn")
                 {
-                    if (direction == "Up")
+                    if (count == 50)
                     {
-                        movePosition = enemy.transform.position + moveY;
+                        //FixedUpdateで一秒を計測するために50回カウントを行う
+                        if (this.gameObject.tag == "EnemyUp"
+                           || this.gameObject.tag == "EnemyDown"
+                           || this.gameObject.tag == "EnemyRight"
+                           || this.gameObject.tag == "EnemyLeft"
+                           )
+                        {
+                            sr.sprite = enemyDown;
+                        }
+                        stopJudge = false;
+                        count = 0;
+                        direction = "Down";
+                        this.tag = "Enemy" + direction;
+                        Debug.Log("TurnDown" + direction);
                     }
-                    else if (direction == "Down")
+
+                    if (stopJudge == false)
                     {
-                        movePosition = enemy.transform.position + -moveY;
+                        movePosition = enemy.transform.position + -moveY;  //movePositionに移動する距離を格納
+                        moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
                     }
-                    else if (direction == "Right")
+                    else if (moveJudge == false)
                     {
-                        movePosition = enemy.transform.position + moveX;
+                        gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
+                        if ((controllButton.fast == true) && (count % 2 == 0))
+                        {
+                            count += 2;
+                        }
+                        else
+                        {
+                            count += 1;
+                        }
+                        Debug.Log("TurnDown" + count);
+                    }
+                }
+
+                if (col.gameObject.tag == "TurnRightOn")
+                {
+                    if (count == 50)
+                    {
+                        //FixedUpdateで一秒を計測するために50回カウントを行う
+                        if (this.gameObject.tag == "EnemyUp"
+                           || this.gameObject.tag == "EnemyDown"
+                           || this.gameObject.tag == "EnemyRight"
+                           || this.gameObject.tag == "EnemyLeft"
+                           )
+                        {
+                            sr.sprite = enemyRight;
+                        }
+                        stopJudge = false;
+                        count = 0;
+                        direction = "Right";
+                        this.tag = "Enemy" + direction;
+                        Debug.Log("TurnRight" + direction);
+                    }
+
+                    if (stopJudge == false)
+                    {
+                        movePosition = enemy.transform.position + moveX;  //movePositionに移動する距離を格納
+                        moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
+                    }
+                    else if (moveJudge == false)
+                    {
+                        gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
+                        if ((controllButton.fast == true) && (count % 2 == 0))
+                        {
+                            count += 2;
+                        }
+                        else
+                        {
+                            count += 1;
+                        }
+                        Debug.Log("TurnRight" + count);
+                    }
+                }
+
+                if (col.gameObject.tag == "TurnLeftOn")
+                {
+                    if (count == 50)
+                    {
+                        //FixedUpdateで一秒を計測するために50回カウントを行う
+                        if (this.gameObject.tag == "EnemyUp"
+                           || this.gameObject.tag == "EnemyDown"
+                           || this.gameObject.tag == "EnemyRight"
+                           || this.gameObject.tag == "EnemyLeft"
+                           )
+                        {
+                            sr.sprite = enemyLeft;
+                        }
+                        stopJudge = false;
+                        count = 0;
+                        direction = "Left";
+                        this.tag = "Enemy" + direction;
+                        Debug.Log("TurnLeft" + direction);
+                    }
+
+                    if (stopJudge == false)
+                    {
+                        movePosition = enemy.transform.position + -moveX;  //movePositionに移動する距離を格納
+                        moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
+                    }
+                    else if (moveJudge == false)
+                    {
+                        gameObject.transform.Rotate(new Vector3(0, this.rotateSpeed, 0));
+                        if ((controllButton.fast == true) && (count % 2 == 0))
+                        {
+                            count += 2;
+                        }
+                        else
+                        {
+                            count += 1;
+                        }
+                        Debug.Log("TurnLeft" + count);
+                    }
+                }
+                /*-----ここまで回転床の処理-----*/
+
+
+                /*-----ここから落とし穴の処理-----*/
+                if (col.gameObject.tag == "HoleOn")
+                {
+                    if (count == 50)
+                    {
+                        stopJudge = false;
+                        this.gameObject.SetActive(true);
+                        count = 0;
+                    }
+
+                    if (stopJudge == false)
+                    {
+                        this.gameObject.SetActive(true);
+                        if (direction == "Up")
+                        {
+                            movePosition = enemy.transform.position + moveY;
+                        }
+                        else if (direction == "Down")
+                        {
+                            movePosition = enemy.transform.position + -moveY;
+                        }
+                        else if (direction == "Right")
+                        {
+                            movePosition = enemy.transform.position + moveX;
+                        }
+                        else
+                        {
+                            movePosition = enemy.transform.position + -moveX;
+                        }
+                        moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
+                    }
+                    else if (moveJudge == false)
+                    {
+                        gameObject.transform.Rotate(new Vector3(0, 360, 0));
+
+                        // 内部時刻を経過させる
+                        _time += Time.deltaTime;
+
+                        // 周期cycleで繰り返す値の取得
+                        // 0～cycleの範囲の値が得られる
+                        var repeatValue = Mathf.Repeat(_time, _cycle);
+
+                        // 内部時刻timeにおける明滅状態を反映
+                        if (count % 4 == 50 % 4)
+                        {
+                            _target.enabled = repeatValue >= _cycle * 0.5f;
+                        }
+
+                        if ((controllButton.fast == true) && (count % 2 == 0))
+                        {
+                            count += 2;
+                        }
+                        else
+                        {
+                            count += 1;
+                        }
+                        Debug.Log("Hole" + count);
+                    }
+                }
+                /*-----ここまで落とし穴の処理-----*/
+
+
+                /*-----ここからワープ床の処理-----*/
+                if (col.gameObject.tag == "Warp1_1On")
+                {
+                    if (stopJudge == true)
+                    {
+                        stopJudge = false;
+                        enemy.gameObject.transform.position = warp1_2;
+                        Debug.Log("Hit1_1");
                     }
                     else
                     {
-                        movePosition = enemy.transform.position + -moveX;
+                        Debug.Log("Arrived1_1");
                     }
-                    moveJudge = true;  //moveButtonJudge = trueにして、処理を制限する
                 }
-                else if (moveJudge == false)
+                else if (col.gameObject.tag == "Warp1_2On" && stopJudge == true)
                 {
-                    gameObject.transform.Rotate(new Vector3(0, 360, 0));
-
-                    // 内部時刻を経過させる
-                    _time += Time.deltaTime;
-
-                    // 周期cycleで繰り返す値の取得
-                    // 0～cycleの範囲の値が得られる
-                    var repeatValue = Mathf.Repeat(_time, _cycle);
-
-                    // 内部時刻timeにおける明滅状態を反映
-                    _target.enabled = repeatValue >= _cycle * 0.5f;
-
-                    count += 1;
-                    Debug.Log("Hole" + count);
+                    if (stopJudge == true)
+                    {
+                        stopJudge = false;
+                        enemy.gameObject.transform.position = warp1_1;
+                        Debug.Log("Hit1_2");
+                    }
+                    else
+                    {
+                        Debug.Log("Arrived1_2");
+                    }
                 }
-            }
-            /*-----ここまで落とし穴の処理-----*/
+
+                if (col.gameObject.tag == "Warp2_1On" && stopJudge == true)
+                {
+                    if (stopJudge == true)
+                    {
+                        stopJudge = false;
+                        enemy.gameObject.transform.position = warp2_2;
+                        Debug.Log("Hit2_1");
+                    }
+                    else
+                    {
+                        Debug.Log("Arrived2_1");
+                    }
+                }
+                else if (col.gameObject.tag == "Warp2_2On" && stopJudge == true)
+                {
+                    if (stopJudge == true)
+                    {
+                        stopJudge = false;
+                        enemy.gameObject.transform.position = warp2_1;
+                        Debug.Log("Hit2_2");
+                    }
+                    else
+                    {
+                        Debug.Log("Arrived2_2");
+                    }
+                }
+
+                if (col.gameObject.tag == "Warp3_1On" && stopJudge == true)
+                {
+                    if (stopJudge == true)
+                    {
+                        stopJudge = false;
+                        enemy.gameObject.transform.position = warp3_2;
+                        Debug.Log("Hit3_1");
+                    }
+                    else
+                    {
+                        Debug.Log("Arrived3_1");
+                    }
+                }
+                else if (col.gameObject.tag == "Warp3_2On" && stopJudge == true)
+                {
+                    if (stopJudge == true)
+                    {
+                        stopJudge = false;
+                        enemy.gameObject.transform.position = warp3_1;
+                        Debug.Log("Hit3_2");
+                    }
+                    else
+                    {
+                        Debug.Log("Arrived3_2");
+                    }
+                }
+                /*-----ここまでワープ床の処理-----*/
 
 
-            /*-----ここからワープ床の処理-----*/
-            if (col.gameObject.tag == "Warp1_1On")
-            {
-                if (stopJudge == true)
+                /*-----ここからゴール床の処理-----*/
+                if (col.gameObject.tag == "GoalHuman")
                 {
                     stopJudge = false;
-                    enemy.gameObject.transform.position = warp1_2;
-                    Debug.Log("Hit1_1");
                 }
-                else
-                {
-                    Debug.Log("Arrived1_1");
-                }
-            }
-            else if (col.gameObject.tag == "Warp1_2On" && stopJudge == true)
-            {
-                if (stopJudge == true)
-                {
-                    stopJudge = false;
-                    enemy.gameObject.transform.position = warp1_1;
-                    Debug.Log("Hit1_2");
-                }
-                else
-                {
-                    Debug.Log("Arrived1_2");
-                }
+                /*-----ここまでゴール床の処理-----*/
             }
 
-            if (col.gameObject.tag == "Warp2_1On" && stopJudge == true)
-            {
-                if (stopJudge == true)
-                {
-                    stopJudge = false;
-                    enemy.gameObject.transform.position = warp2_2;
-                    Debug.Log("Hit2_1");
-                }
-                else
-                {
-                    Debug.Log("Arrived2_1");
-                }
-            }
-            else if (col.gameObject.tag == "Warp2_2On" && stopJudge == true)
-            {
-                if (stopJudge == true)
-                {
-                    stopJudge = false;
-                    enemy.gameObject.transform.position = warp2_1;
-                    Debug.Log("Hit2_2");
-                }
-                else
-                {
-                    Debug.Log("Arrived2_2");
-                }
-            }
 
-            if (col.gameObject.tag == "Warp3_1On" && stopJudge == true)
+            /*-----ここから通行止め床の処理-----*/
+            if (col.gameObject.tag == "StopOn")
             {
-                if (stopJudge == true)
+                Debug.Log("HitStop");
+                if (enemyState == "Night")
                 {
                     stopJudge = false;
-                    enemy.gameObject.transform.position = warp3_2;
-                    Debug.Log("Hit3_1");
-                }
-                else
-                {
-                    Debug.Log("Arrived3_1");
                 }
             }
-            else if (col.gameObject.tag == "Warp3_2On" && stopJudge == true)
-            {
-                if (stopJudge == true)
-                {
-                    stopJudge = false;
-                    enemy.gameObject.transform.position = warp3_1;
-                    Debug.Log("Hit3_2");
-                }
-                else
-                {
-                    Debug.Log("Arrived3_2");
-                }
-            }
-            /*-----ここまでワープ床の処理-----*/
+            /*-----ここから通行止め床の処理-----*/
 
 
-            /*-----ここからゴール床の処理-----*/
-            if (col.gameObject.tag == "GoalHuman")
+            /*-----ここからプレイヤーの処理-----*/
+            if (col.gameObject.tag == "HumanUp"
+                || col.gameObject.tag == "HumanDown"
+                || col.gameObject.tag == "HumanRight"
+                || col.gameObject.tag == "HumanLeft"
+                || col.gameObject.tag == "WolfUp"
+                || col.gameObject.tag == "WolfDown"
+                || col.gameObject.tag == "WolfRight"
+                || col.gameObject.tag == "WolfLeft"
+                )
             {
-                stopJudge = false;
+                stopJudge = true;
+                movePosition = enemy.transform.position;
+                Debug.Log("HitPlayer");
+                StartCoroutine(Failed());
             }
-            /*-----ここまでゴール床の処理-----*/
+            /*-----ここまでプレイヤ―の処理-----*/
         }
+    }
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
 
         /*-----ここから通行止め床の処理-----*/
         if (col.gameObject.tag == "StopOn")
         {
             Debug.Log("HitStop");
-            if (enemyState == "Night")
+            if (enemyState == "Noon")
             {
+                if (direction == "Up")
+                {
+                    direction = "Down";
+                    sr.sprite = enemyDown;
+                    movePosition = enemy.transform.position + -moveY;
+                }
+                else if (direction == "Down")
+                {
+                    direction = "Up";
+                    sr.sprite = enemyUp;
+                    movePosition = enemy.transform.position + moveY;
+                }
+                else if (direction == "Right")
+                {
+                    direction = "Left";
+                    sr.sprite = enemyLeft;
+                    movePosition = enemy.transform.position + -moveX;
+                }
+                else if (direction == "Left")
+                {
+                    direction = "Right";
+                    sr.sprite = enemyRight;
+                    movePosition = enemy.transform.position + moveX;
+                }
                 stopJudge = false;
             }
         }
-        /*-----ここから通行止め床の処理-----*/
+        /*-----ここまで通行止め床の処理-----*/
 
 
-        /*-----ここからプレイヤーの処理-----*/
-        if (col.gameObject.tag == "HumanUp"
-            || col.gameObject.tag == "HumanDown"
-            || col.gameObject.tag == "HumanRight"
-            || col.gameObject.tag == "HumanLeft"
-            || col.gameObject.tag == "WolfUp"
-            || col.gameObject.tag == "WolfDown"
-            || col.gameObject.tag == "WolfRight"
-            || col.gameObject.tag == "WolfLeft"
-            )
-        {
-            stopJudge = true;
-            movePosition = enemy.transform.position;
-            Debug.Log("HitPlayer");
-            StartCoroutine(Failed());
-        }
-        /*-----ここまでプレイヤ―の処理-----*/
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
         /*-----ここから障害物床の処理-----*/
         if (col.gameObject.tag == "ObstacleFloor")
         {
@@ -578,5 +696,6 @@ public class Enemy : MonoBehaviour
         this.gameObject.transform.position = firstPosition;
         this.tag = startTag;
         Start();
+        moveJudge = true;
     }
 }

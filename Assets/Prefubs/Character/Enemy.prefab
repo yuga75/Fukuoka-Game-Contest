@@ -170,10 +170,6 @@ MonoBehaviour:
   warp2_2: {x: 0, y: 0, z: 0}
   warp3_1: {x: 0, y: 0, z: 0}
   warp3_2: {x: 0, y: 0, z: 0}
-  PlayButton: {fileID: 0}
-  PauseButton: {fileID: 0}
-  FastButton: {fileID: 0}
-  ResetButton: {fileID: 0}
   enemyUp: {fileID: 21300000, guid: 5d2f3f2ee16f7ec45bcd700751455208, type: 3}
   enemyDown: {fileID: 21300000, guid: 066a022cccad16246aa5349b26128c59, type: 3}
   enemyRight: {fileID: 21300000, guid: 75a3c14c83e650f48b6e7a2cacc54244, type: 3}
@@ -181,3 +177,4 @@ MonoBehaviour:
   ObstacleFloor: {fileID: 297313667194457391, guid: 1c560c567270bbe4597158080b9bde76, type: 3}
   StopFloor: {fileID: 1794205004701381357, guid: a5203ebcc53458145a700543e6a0ae10, type: 3}
   Player: {fileID: 2381052554906082813, guid: 00922a9410ae8584cbb050eff2a68a38, type: 3}
+  ControllButton: {fileID: 266977330688712160, guid: dddcbef7055e4df4190769992e8a91a0, type: 3}
