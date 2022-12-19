@@ -7,9 +7,12 @@ using UnityEngine.EventSystems;
 public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Vector3 prePosition;
+    public Vector3 currentPosition;
     public Vector3 playerPos;
 
-
+    void Start()
+    {
+    }
     /// <summary>
     /// ドラッグ開始時に呼び出される
     /// </summary>
@@ -47,6 +50,7 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             if (hit.gameObject.CompareTag("NormalFloor"))
             {
                 transform.position = hit.gameObject.transform.position;
+                currentPosition = hit.gameObject.transform.position;
                 flg = false;
             }
         }

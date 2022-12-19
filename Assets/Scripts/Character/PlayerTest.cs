@@ -16,7 +16,8 @@ public class PlayerTest : MonoBehaviour
     public Vector3 moveX = new Vector3(1, 0, 0);　//(1マス毎の)X軸の移動距離
     bool moveJudge; //移動中の判定
     bool stopJudge;
-    bool failedJudge;
+    bool firstJudge;
+    public Vector3 currentPosition;
     string startTag;
     public string direction;
     public string playerState;
@@ -76,7 +77,6 @@ public class PlayerTest : MonoBehaviour
         startTag = this.gameObject.tag;
         moveJudge = false; //⑤初期設定
         sr = gameObject.GetComponent<SpriteRenderer>();
-        firstPosition = player.transform.position;
 
         ControllButton = GameObject.Find("ControllButton(empty)");
         controllButton = ControllButton.GetComponent<ControllButton>();
@@ -85,6 +85,8 @@ public class PlayerTest : MonoBehaviour
         enemy = Enemy.GetComponent<Enemy>();
 
         clearImage = GameObject.Find("ClearUI");
+
+        firstJudge = true;
 
         if (this.gameObject.tag == "HumanUp")
         {
@@ -148,6 +150,8 @@ public class PlayerTest : MonoBehaviour
 
     private void Update()
     {
+        firstPosition = dropScript.currentPosition;
+        currentPosition = this.gameObject.transform.position;
         if (controllButton.play == true
             && (playerState != "humanFailed" || playerState != "wolfFailed"))
         {
@@ -203,7 +207,8 @@ public class PlayerTest : MonoBehaviour
         //移動場所設定
         if (moveJudge == false 
             && stopJudge == false
-            && (playerState != "humanFailed" || playerState != "wolfFailed"))
+            && (playerState != "humanFailed" || playerState != "wolfFailed")
+            && firstJudge == false)
         {
             if (direction == "Up")
             {
@@ -225,6 +230,31 @@ public class PlayerTest : MonoBehaviour
                 movePosition = player.transform.position + -moveX;
                 moveJudge = true;
             }
+        }
+
+        if(firstJudge == true)
+        {
+            if (direction == "Up")
+            {
+                movePosition = currentPosition + moveY;  //movePositionに移動する距離を格納
+                moveJudge = true;  //moveButtonJudge = trueにして、移動を制限する
+            }
+            if (direction == "Down")
+            {
+                movePosition = currentPosition + -moveY;
+                moveJudge = true;
+            }
+            if (direction == "Right")
+            {
+                movePosition = currentPosition + moveX;
+                moveJudge = true;
+            }
+            if (direction == "Left")
+            {
+                movePosition = currentPosition + -moveX;
+                moveJudge = true;
+            }
+            firstJudge = false;
         }
 
         if (DayFloor.instance.DayNightFlag == true)
