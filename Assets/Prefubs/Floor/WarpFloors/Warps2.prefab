@@ -110,6 +110,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warp2_1
       objectReference: {fileID: 0}
+    - target: {fileID: 851905410662835836, guid: 09d5dcf2e917d584abc707f0f2aa7ab1, type: 3}
+      propertyPath: OnImage
+      value: 
+      objectReference: {fileID: 21300000, guid: b813b775d9a70ae46b68a045a43fbaee, type: 3}
+    - target: {fileID: 851905410662835836, guid: 09d5dcf2e917d584abc707f0f2aa7ab1, type: 3}
+      propertyPath: OffImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 62a9a6269595269468f7aa66eaa662be, type: 3}
+    - target: {fileID: 851905410662835838, guid: 09d5dcf2e917d584abc707f0f2aa7ab1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b813b775d9a70ae46b68a045a43fbaee, type: 3}
     - target: {fileID: 851905410662835839, guid: 09d5dcf2e917d584abc707f0f2aa7ab1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -190,6 +202,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3423038645730959259}
     m_Modifications:
+    - target: {fileID: 1795353994701515009, guid: ed325d85ed605b849a89077a41b78dcf, type: 3}
+      propertyPath: OnImage
+      value: 
+      objectReference: {fileID: 21300000, guid: b813b775d9a70ae46b68a045a43fbaee, type: 3}
+    - target: {fileID: 1795353994701515009, guid: ed325d85ed605b849a89077a41b78dcf, type: 3}
+      propertyPath: OffImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 62a9a6269595269468f7aa66eaa662be, type: 3}
     - target: {fileID: 1795353994701515010, guid: ed325d85ed605b849a89077a41b78dcf, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -234,6 +254,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1795353994701515011, guid: ed325d85ed605b849a89077a41b78dcf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b813b775d9a70ae46b68a045a43fbaee, type: 3}
     - target: {fileID: 1795353994701515070, guid: ed325d85ed605b849a89077a41b78dcf, type: 3}
       propertyPath: m_Name
       value: Warp2_2
