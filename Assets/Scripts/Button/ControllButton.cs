@@ -13,6 +13,7 @@ public class ControllButton : MonoBehaviour
 
     private float ResetCount = 0;
     private float ResetLimit = 20;
+    private float OutResetLimit = 1000;
 
     [SerializeField] GameObject GameClear;
 
@@ -53,15 +54,11 @@ public class ControllButton : MonoBehaviour
         //playerがアウトになったときリセットの処理を実行する
         if(pt.playerState == "humanFailed" || pt.playerState == "wolfFailed")
         {
-            reset = true;
-            play = false;
-            stop = false;
-            fast = false;
             ResetCount += 1;
             Debug.Log(ResetCount);
-            if (ResetCount >= ResetLimit)
+            if (ResetCount >= OutResetLimit)
             {
-                reset = false;
+                reset = true;
                 Debug.Log("play:" + play);
                 Debug.Log("stop:" + stop);
                 Debug.Log("fast:" + fast);
