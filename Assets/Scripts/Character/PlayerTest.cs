@@ -72,6 +72,15 @@ public class PlayerTest : MonoBehaviour
 
     public GameObject clearImage;
 
+    AudioSource audioSource;
+    public AudioClip footstepsSound;
+    public AudioClip TurnFloorSound;
+    public AudioClip WarpFloorSound;
+    public AudioClip HoleFloorSound;
+    public AudioClip DayFloorSound;
+    public AudioClip playerClearSound;
+    public AudioClip playerFailedSound;
+
     public void Start()
     {
         startTag = this.gameObject.tag;
@@ -85,6 +94,8 @@ public class PlayerTest : MonoBehaviour
         enemy = Enemy.GetComponent<Enemy>();
 
         firstPosition = dropScript.currentPosition;
+
+        audioSource = GetComponent<AudioSource>();
 
         if (this.gameObject.tag == "HumanUp")
         {
@@ -310,6 +321,7 @@ public class PlayerTest : MonoBehaviour
                     && col.gameObject.tag != "Enemy"
                     && playerState != "Failed")
                 {
+                    audioSource.PlayOneShot(footstepsSound);
                     stopJudge = false;
                 }
                 /*-----ここまで通常床の処理-----*/
@@ -744,8 +756,40 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Warp1_1On"
+            || other.gameObject.tag == "Warp1_2On"
+            || other.gameObject.tag == "Warp2_1On"
+            || other.gameObject.tag == "Warp2_2On"
+            || other.gameObject.tag == "Warp3_1On"
+            || other.gameObject.tag == "Warp3_2On")
+        {
+            audioSource.PlayOneShot(WarpFloorSound);
+        }
+
+        if(other.gameObject.tag == "TurnUpOn"
+            || other.gameObject.tag == "TurnDownOn"
+            || other.gameObject.tag == "TurnRightOn"
+            || other.gameObject.tag == "TurnLeftOn")
+        {
+            audioSource.PlayOneShot(TurnFloorSound);
+        }
+
+        if(other.gameObject.tag == "DayOn")
+        {
+            audioSource.PlayOneShot(DayFloorSound);
+        }
+
+        if(other.gameObject.tag == "HoleOn")
+        {
+            audioSource.PlayOneShot(HoleFloorSound);
+        }
+    }
+
     IEnumerator Cleared()
     {
+        audioSource.PlayOneShot(playerClearSound);
         if (playerState == "Human")
         {
             this.gameObject.tag = "HumanGoaled";
@@ -765,6 +809,7 @@ public class PlayerTest : MonoBehaviour
 
     IEnumerator Failed()
     {
+        audioSource.PlayOneShot(playerFailedSound);
         if (playerState == "humanFailed")
         {
             sr.sprite = humanOut;

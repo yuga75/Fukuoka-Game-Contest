@@ -61,6 +61,12 @@ public class Enemy : MonoBehaviour
     public GameObject ControllButton;
     ControllButton controllButton;
 
+    AudioSource audioSource;
+    public AudioClip TurnFloorSound;
+    public AudioClip WarpFloorSound;
+    public AudioClip HoleFloorSound;
+    public AudioClip DayFloorSound;
+
     void Start()
     {
         Time.timeScale = 1;
@@ -78,6 +84,7 @@ public class Enemy : MonoBehaviour
         Player = GameObject.Find("Player");
         playerTest = Player.GetComponent<PlayerTest>();
 
+        audioSource = GetComponent<AudioSource>();
 
         if (this.gameObject.tag == "EnemyUp")
         {
@@ -616,6 +623,34 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+
+        if (col.gameObject.tag == "Warp1_1On"
+            || col.gameObject.tag == "Warp1_2On"
+            || col.gameObject.tag == "Warp2_1On"
+            || col.gameObject.tag == "Warp2_2On"
+            || col.gameObject.tag == "Warp3_1On"
+            || col.gameObject.tag == "Warp3_2On")
+        {
+            audioSource.PlayOneShot(WarpFloorSound);
+        }
+
+        if (col.gameObject.tag == "TurnUpOn"
+            || col.gameObject.tag == "TurnDownOn"
+            || col.gameObject.tag == "TurnRightOn"
+            || col.gameObject.tag == "TurnLeftOn")
+        {
+            audioSource.PlayOneShot(TurnFloorSound);
+        }
+
+        if (col.gameObject.tag == "DayOn")
+        {
+            audioSource.PlayOneShot(DayFloorSound);
+        }
+
+        if (col.gameObject.tag == "HoleOn")
+        {
+            audioSource.PlayOneShot(HoleFloorSound);
+        }
 
         /*-----ここから通行止め床の処理-----*/
         if (col.gameObject.tag == "StopOn")

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1956210044284912959}
   - component: {fileID: 1956210044284912897}
   m_Layer: 0
-  m_Name: GoalWolf
+  m_Name: GoalWolf 1
   m_TagString: GoalWolf
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: -456278119
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: be29b005a721abe41b5b8af368c3db40, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1a96c004e1962f4181a00ce567f305d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
