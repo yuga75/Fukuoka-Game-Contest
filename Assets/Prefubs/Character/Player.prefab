@@ -181,7 +181,7 @@ MonoBehaviour:
   wolfGoal: {fileID: 21300000, guid: e804e4b222a6fb94a988c88e82418f35, type: 3}
   wolfOut: {fileID: 21300000, guid: 52da11bd4cbf5d8428bff439ea86db2f, type: 3}
   Enemy: {fileID: 2381052554906082813, guid: b6c2f0741c1937b46b4db5090c8d6501, type: 3}
-  clearImage: {fileID: 5421409411353108375, guid: 3ec4be1a9bef52c46a9f04ee5b4ade5e, type: 3}
+  bgm: {fileID: 0}
   footstepsSound: {fileID: 8300000, guid: 75f29fa786fbafa4fac7e414adf55ba2, type: 3}
   TurnFloorSound: {fileID: 8300000, guid: 1aa9598df48c4a240b40f3a7213a8ae7, type: 3}
   WarpFloorSound: {fileID: 8300000, guid: c23060c51f698854bbab5c48405d2e21, type: 3}

@@ -70,9 +70,11 @@ public class PlayerTest : MonoBehaviour
     public GameObject Enemy;
     Enemy enemy;
 
-    public GameObject clearImage;
+    public GameObject bgm;
+    AudioSource BGM;
 
     AudioSource audioSource;
+
     public AudioClip footstepsSound;
     public AudioClip TurnFloorSound;
     public AudioClip WarpFloorSound;
@@ -96,6 +98,9 @@ public class PlayerTest : MonoBehaviour
         firstPosition = dropScript.currentPosition;
 
         audioSource = GetComponent<AudioSource>();
+
+        bgm = GameObject.Find("BGM");
+        BGM = bgm.GetComponent<AudioSource>();
 
         if (this.gameObject.tag == "HumanUp")
         {
@@ -789,7 +794,7 @@ public class PlayerTest : MonoBehaviour
 
     IEnumerator Cleared()
     {
-        audioSource.PlayOneShot(playerClearSound);
+        audioSource.enabled = !footstepsSound;
         if (playerState == "Human")
         {
             this.gameObject.tag = "HumanGoaled";
@@ -802,6 +807,7 @@ public class PlayerTest : MonoBehaviour
             sr.sprite = wolfGoal;
             playerState = "Cleared";
         }
+        audioSource.PlayOneShot(playerClearSound);
         Time.timeScale = 0;
         yield return new WaitForSeconds(2);
         
@@ -809,6 +815,7 @@ public class PlayerTest : MonoBehaviour
 
     IEnumerator Failed()
     {
+        audioSource.enabled = !footstepsSound;
         audioSource.PlayOneShot(playerFailedSound);
         if (playerState == "humanFailed")
         {
@@ -833,6 +840,7 @@ public class PlayerTest : MonoBehaviour
         //例：敵オブジェクトを破壊
         this.gameObject.transform.position = firstPosition;
         this.tag = startTag;
+        BGM.Play();
         Start();
         moveJudge = true;
     }

@@ -13,18 +13,24 @@ public class ControllButton : MonoBehaviour
 
     private float ResetCount = 0;
     private float ResetLimit = 20;
-    private float OutResetLimit = 1000;
+    private float OutResetLimit = 250;
 
     [SerializeField] GameObject GameClear;
 
     private GameObject PlayerObject;
     private PlayerTest pt;
 
+    public GameObject ResetButton;
+    MainEvent mainEvent;
+
     // Start is called before the first frame update
     void Start()
     {
         PlayerObject = GameObject.Find("Player");
         pt = PlayerObject.GetComponent<PlayerTest>();
+
+        ResetButton = GameObject.Find("ResetButton");
+        mainEvent = ResetButton.GetComponent<MainEvent>();
     }
 
     // Update is called once per frame
@@ -58,7 +64,7 @@ public class ControllButton : MonoBehaviour
             Debug.Log(ResetCount);
             if (ResetCount >= OutResetLimit)
             {
-                reset = true;
+                mainEvent.ResetEvent();
                 Debug.Log("play:" + play);
                 Debug.Log("stop:" + stop);
                 Debug.Log("fast:" + fast);

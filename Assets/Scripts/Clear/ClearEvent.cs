@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class ClearEvent : MonoBehaviour
 {
-    [SerializeField] GameObject GameClear;
+    public Renderer GameClear;
 
-    private GameObject PlayerObject;
-    private PlayerTest pt;
+    public GameObject PlayerObject;
+    PlayerTest pt;
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerObject = GameObject.Find("Player");
         pt = PlayerObject.GetComponent<PlayerTest>();
-        transform.SetAsLastSibling();
+        GameClear.enabled = false;
     }
 
     // Update is called once per frame
@@ -25,7 +25,8 @@ public class ClearEvent : MonoBehaviour
         //クリア後、ClearUIを表示する
         if(pt.playerState == "Cleared")
         {
-            GameClear.SetActive(true);
+            Debug.Log("検知");
+            GameClear.enabled = true;
         }
     }
 }

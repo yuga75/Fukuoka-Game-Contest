@@ -49,3 +49,4 @@ MonoBehaviour:
   fast: 0
   reset: 0
   GameClear: {fileID: 5421409411353108375, guid: 3ec4be1a9bef52c46a9f04ee5b4ade5e, type: 3}
+  ResetButton: {fileID: 7050358421121889927, guid: d7ec88a25c373434abf15d312ee4b9a9, type: 3}
