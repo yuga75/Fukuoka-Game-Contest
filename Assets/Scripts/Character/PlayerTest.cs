@@ -154,10 +154,10 @@ public class PlayerTest : MonoBehaviour
 
         /*-----設置していないワープオブジェクトは下記のようにコメントアウトしてください
          *-----コメントアウトされていないとバグります-----*/
-        //warp1_1 = GameObject.Find("Warp1_1").transform.position;
-        //warp1_2 = GameObject.Find("Warp1_2").transform.position;
-        warp2_1 = GameObject.Find("Warp2_1").transform.position;
-        warp2_2 = GameObject.Find("Warp2_2").transform.position;
+        warp1_1 = GameObject.Find("Warp1_1").transform.position;
+        warp1_2 = GameObject.Find("Warp1_2").transform.position;
+        //warp2_1 = GameObject.Find("Warp2_1").transform.position;
+        //warp2_2 = GameObject.Find("Warp2_2").transform.position;
         //warp3_1 = GameObject.Find("Warp3_1").transform.position;
         //warp3_2 = GameObject.Find("Warp3_2").transform.position;
     }
@@ -541,6 +541,64 @@ public class PlayerTest : MonoBehaviour
                     }
                 }
                 /*-----ここまで回転床の処理-----*/
+
+
+                /*-----ここから昼夜床の処理-----*/
+                if (col.gameObject.tag == "DayOn")
+                {
+                    if(this.tag == "HumanUp")
+                    {
+                        sr.sprite = wolfUp;
+                        playerState = "Wolf";
+                        this.tag = "WolfUp";
+                    }
+                    else if (this.tag == "HumanDown")
+                    {
+                        sr.sprite = wolfDown;
+                        playerState = "Wolf";
+                        this.tag = "WolfDown";
+                    }
+                    else if (this.tag == "HumanRight")
+                    {
+                        sr.sprite = wolfRight;
+                        playerState = "Wolf";
+                        this.tag = "WolfRight";
+                    }
+                    else if (this.tag == "HumanLeft")
+                    {
+                        sr.sprite = wolfLeft;
+                        playerState = "Wolf";
+                        this.tag = "WolfLeft";
+                    }
+
+                    if (this.tag == "WolfUp")
+                    {
+                        sr.sprite = humanUp;
+                        playerState = "Human";
+                        this.tag = "HumanUp";
+                    }
+                    else if (this.tag == "WolfDown")
+                    {
+                        sr.sprite = humanDown;
+                        playerState = "Human";
+                        this.tag = "HumanDown";
+                    }
+                    else if (this.tag == "WolfRight")
+                    {
+                        sr.sprite = humanRight;
+                        playerState = "Human";
+                        this.tag = "HumanRight";
+                    }
+                    else if (this.tag == "WolfLeft")
+                    {
+                        sr.sprite = humanLeft;
+                        playerState = "Human";
+                        this.tag = "HumanLeft";
+                    }
+
+                    stopJudge = false;
+                }
+                /*-----ここまで昼夜床の処理-----*/
 
 
                 /*-----ここから落とし穴の処理-----*/
