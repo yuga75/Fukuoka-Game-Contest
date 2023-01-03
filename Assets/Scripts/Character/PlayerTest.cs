@@ -157,12 +157,12 @@ public class PlayerTest : MonoBehaviour
 
         /*-----設置していないワープオブジェクトは下記のようにコメントアウトしてください
          *-----コメントアウトされていないとバグります-----*/
-        //warp1_1 = GameObject.Find("Warp1_1").transform.position;
-        //warp1_2 = GameObject.Find("Warp1_2").transform.position;
+        warp1_1 = GameObject.Find("Warp1_1").transform.position;
+        warp1_2 = GameObject.Find("Warp1_2").transform.position;
         warp2_1 = GameObject.Find("Warp2_1").transform.position;
         warp2_2 = GameObject.Find("Warp2_2").transform.position;
-        //warp3_1 = GameObject.Find("Warp3_1").transform.position;
-        //warp3_2 = GameObject.Find("Warp3_2").transform.position;
+        warp3_1 = GameObject.Find("Warp3_1").transform.position;
+        warp3_2 = GameObject.Find("Warp3_2").transform.position;
     }
 
     private void Update()

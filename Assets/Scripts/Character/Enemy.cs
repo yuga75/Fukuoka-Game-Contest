@@ -54,7 +54,16 @@ public class Enemy : MonoBehaviour
     // 画像描画用のコンポーネント
     SpriteRenderer sr;
 
-    public GameObject ObstacleFloor;
+    public GameObject ObstacleFloor1;
+    public GameObject ObstacleFloor2;
+    public GameObject ObstacleFloor3;
+    public GameObject ObstacleFloor4;
+    public GameObject ObstacleFloor5;
+    public GameObject ObstacleFloor6;
+    public GameObject ObstacleFloor7;
+    public GameObject ObstacleFloor8;
+    public GameObject ObstacleFloor9;
+    public GameObject ObstacleFloor10;
     public GameObject StopFloor;
 
     public GameObject Player;
@@ -80,7 +89,16 @@ public class Enemy : MonoBehaviour
         ControllButton = GameObject.Find("ControllButton(empty)");
         controllButton = ControllButton.GetComponent<ControllButton>();
 
-        ObstacleFloor = GameObject.Find("ObstacleFloor");
+        //ObstacleFloor1 = GameObject.Find("ObstacleFloor1");
+        //ObstacleFloor2 = GameObject.Find("ObstacleFloor2");
+        //ObstacleFloor3 = GameObject.Find("ObstacleFloor3");
+        //ObstacleFloor4 = GameObject.Find("ObstacleFloor4");
+        //ObstacleFloor5 = GameObject.Find("ObstacleFloor5");
+        //ObstacleFloor6 = GameObject.Find("ObstacleFloor6");
+        //ObstacleFloor7 = GameObject.Find("ObstacleFloor7");
+        //ObstacleFloor8 = GameObject.Find("ObstacleFloor8");
+        //ObstacleFloor9 = GameObject.Find("ObstacleFloor9");
+        ObstacleFloor10 = GameObject.Find("ObstacleFloor10");
         StopFloor = GameObject.Find("StopFloor");
 
         Player = GameObject.Find("Player");
@@ -115,12 +133,12 @@ public class Enemy : MonoBehaviour
 
         /*-----設置していないワープオブジェクトは下記のようにコメントアウトしてください
          *-----コメントアウトされていないとバグります-----*/
-        //warp1_1 = GameObject.Find("Warp1_1").transform.position;
-        //warp1_2 = GameObject.Find("Warp1_2").transform.position;
+        warp1_1 = GameObject.Find("Warp1_1").transform.position;
+        warp1_2 = GameObject.Find("Warp1_2").transform.position;
         warp2_1 = GameObject.Find("Warp2_1").transform.position;
         warp2_2 = GameObject.Find("Warp2_2").transform.position;
-        //warp3_1 = GameObject.Find("Warp3_1").transform.position;
-        //warp3_2 = GameObject.Find("Warp3_2").transform.position;
+        warp3_1 = GameObject.Find("Warp3_1").transform.position;
+        warp3_2 = GameObject.Find("Warp3_2").transform.position;
     }
 
     private void Update()
@@ -183,6 +201,80 @@ public class Enemy : MonoBehaviour
         {
             direction = "";
         }
+        if(count == 0 && _target.enabled == false)
+        {
+            _target.enabled = true;
+        }
+        /*
+        if(direction == "Up" && stopJudge == true)
+        {
+            if(this.gameObject.transform.position + moveY == ObstacleFloor1.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor2.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor3.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor4.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor5.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor6.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor7.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor8.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor9.transform.position
+                || this.gameObject.transform.position + moveY == ObstacleFloor10.transform.position
+                || this.gameObject.transform.position + moveY == StopFloor.transform.position)
+            {
+                direction = "Down";
+            }
+        }
+        if(direction == "Down" && stopJudge == true)
+        {
+            if (this.gameObject.transform.position + -moveY == ObstacleFloor1.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor2.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor3.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor4.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor5.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor6.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor7.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor8.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor9.transform.position
+                || this.gameObject.transform.position + -moveY == ObstacleFloor10.transform.position
+                || this.gameObject.transform.position + -moveY == StopFloor.transform.position)
+            {
+                direction = "Up";
+            }
+        }
+        if(direction == "Right" && stopJudge == true)
+        {
+            if (this.gameObject.transform.position + moveX == ObstacleFloor1.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor2.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor3.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor4.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor5.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor6.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor7.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor8.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor9.transform.position
+                || this.gameObject.transform.position + moveX == ObstacleFloor10.transform.position
+                || this.gameObject.transform.position + moveX == StopFloor.transform.position)
+            {
+                direction = "Left";
+            }
+        }
+        if(direction == "Left" && stopJudge == true)
+        {
+            if (this.gameObject.transform.position + -moveX == ObstacleFloor1.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor2.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor3.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor4.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor5.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor6.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor7.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor8.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor9.transform.position
+                || this.gameObject.transform.position + -moveX == ObstacleFloor10.transform.position
+                || this.gameObject.transform.position + -moveX == StopFloor.transform.position)
+            {
+                direction = "Right";
+            }
+        }
+        */
     }
 
     void FixedUpdate()
@@ -444,7 +536,7 @@ public class Enemy : MonoBehaviour
                     if (count == 50)
                     {
                         stopJudge = false;
-                        this.gameObject.SetActive(true);
+                        this.enabled = true;
                         count = 0;
                     }
 

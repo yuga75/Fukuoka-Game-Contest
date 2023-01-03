@@ -8,7 +8,7 @@ public class ChangeImage : MonoBehaviour
     [SerializeField] private Sprite OnImage;
     [SerializeField] private Sprite OffImage;
     SpriteRenderer sr;
-    private bool ImageFlag = false;
+    private bool ImageFlag = true;
 
     void Start(){
         sr = gameObject.GetComponent<SpriteRenderer>();

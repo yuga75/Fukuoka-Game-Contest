@@ -112,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.23, y: 1.23}
+  m_Size: {x: 1.19, y: 1.19}
   m_EdgeRadius: 0
 --- !u!50 &1223097466318184492
 Rigidbody2D:
@@ -175,7 +175,16 @@ MonoBehaviour:
   enemyDown: {fileID: 21300000, guid: eebe89f8445113c488f02385e7feb892, type: 3}
   enemyRight: {fileID: 21300000, guid: 8fe858c11f8355c488d62f64907cf339, type: 3}
   enemyLeft: {fileID: 21300000, guid: eb34a5c056893684cbfcae2f9dd4968e, type: 3}
-  ObstacleFloor: {fileID: 297313667194457391, guid: 1c560c567270bbe4597158080b9bde76, type: 3}
+  ObstacleFloor1: {fileID: 297313667194457391, guid: 62e39522ec8ba414494c8823a0c2e4a1, type: 3}
+  ObstacleFloor2: {fileID: 297313667194457391, guid: 23c08d728525be04690e3a212bd4e87d, type: 3}
+  ObstacleFloor3: {fileID: 297313667194457391, guid: 2aed01ae9b291f946ac76970b95981e0, type: 3}
+  ObstacleFloor4: {fileID: 297313667194457391, guid: 728608087f0bdaa468d0a3f18eef5607, type: 3}
+  ObstacleFloor5: {fileID: 297313667194457391, guid: 43cbe583ae5e5e84c8b2e7c52d12da8f, type: 3}
+  ObstacleFloor6: {fileID: 297313667194457391, guid: adfab396077d4da448247a3a7fc5bf71, type: 3}
+  ObstacleFloor7: {fileID: 297313667194457391, guid: 06a620931464f394fb946adba340ed78, type: 3}
+  ObstacleFloor8: {fileID: 297313667194457391, guid: d284b48fc2ed4b44dac19a9646bb3445, type: 3}
+  ObstacleFloor9: {fileID: 297313667194457391, guid: 74e89e08779e7be4696693b8169c99c7, type: 3}
+  ObstacleFloor10: {fileID: 297313667194457391, guid: 1c560c567270bbe4597158080b9bde76, type: 3}
   StopFloor: {fileID: 1794205004701381357, guid: a5203ebcc53458145a700543e6a0ae10, type: 3}
   Player: {fileID: 2381052554906082813, guid: 00922a9410ae8584cbb050eff2a68a38, type: 3}
   ControllButton: {fileID: 266977330688712160, guid: dddcbef7055e4df4190769992e8a91a0, type: 3}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8550520121615315120}
   - component: {fileID: 6441570480443059777}
   m_Layer: 0
-  m_Name: ObstacleFloor0
+  m_Name: ObstacleFloor10
   m_TagString: ObstacleFloor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

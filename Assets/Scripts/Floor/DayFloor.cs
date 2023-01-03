@@ -7,8 +7,27 @@ public class DayFloor : MonoBehaviour
     public static DayFloor instance;
     private bool DayFlag = false;
     public bool DayNightFlag = true;
+    bool FirstDayNightFlag;
     private string ModeOn = "DayOn";
     private string ModeOff = "DayOff";
+
+    public GameObject ControllButton;
+    ControllButton controllButton;
+
+    private void Start()
+    {
+        ControllButton = GameObject.Find("ControllButton(empty)");
+        controllButton = ControllButton.GetComponent<ControllButton>();
+        FirstDayNightFlag = DayNightFlag;
+    }
+
+    private void Update()
+    {
+        if(controllButton.reset == true)
+        {
+            DayNightFlag = FirstDayNightFlag;
+        }    
+    }
 
     public void Awake()
     {
