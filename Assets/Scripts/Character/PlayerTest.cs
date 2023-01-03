@@ -23,6 +23,7 @@ public class PlayerTest : MonoBehaviour
     public string playerState;
     public Vector3 firstPosition;
     public Vector3 transPosition;
+    Quaternion rotatePosition;
     Vector3 tmp;
 
     int count = 0;
@@ -95,12 +96,14 @@ public class PlayerTest : MonoBehaviour
         Enemy = GameObject.Find("Enemy");
         enemy = Enemy.GetComponent<Enemy>();
 
-        firstPosition = dropScript.currentPosition;
+        firstPosition = this.gameObject.transform.position;
 
         audioSource = GetComponent<AudioSource>();
 
         bgm = GameObject.Find("BGM");
         BGM = bgm.GetComponent<AudioSource>();
+
+        rotatePosition = this.gameObject.transform.rotation;
 
         if (this.gameObject.tag == "HumanUp")
         {
@@ -290,6 +293,7 @@ public class PlayerTest : MonoBehaviour
         if (stopJudge == false)
         {
             player.transform.position = Vector3.MoveTowards(player.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
+            audioSource.enabled = footstepsSound;
         }
 
 
@@ -817,6 +821,7 @@ public class PlayerTest : MonoBehaviour
     {
         audioSource.enabled = !footstepsSound;
         audioSource.PlayOneShot(playerFailedSound);
+        this.gameObject.transform.rotation = rotatePosition;
         if (playerState == "humanFailed")
         {
             sr.sprite = humanOut;
@@ -828,8 +833,9 @@ public class PlayerTest : MonoBehaviour
             direction = "";
         }
         yield return new WaitForSeconds(3);
-        StartCoroutine(Reset());
+        //StartCoroutine(Reset());
     }
+
     IEnumerator Reset()
     {
         //終わるまで待ってほしい処理を書く
@@ -840,8 +846,10 @@ public class PlayerTest : MonoBehaviour
         //例：敵オブジェクトを破壊
         this.gameObject.transform.position = firstPosition;
         this.tag = startTag;
+        count = 0;
         BGM.Play();
         Start();
-        moveJudge = true;
+        moveJudge = false;
+        stopJudge = false;
     }
 }

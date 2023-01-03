@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
     public string enemyState;
     public Vector3 firstPosition;
     public Vector3 transPosition;
+    quaternion rotatePosition;
 
     int count = 0;
     float rotateSpeed = 7.2f;
@@ -85,6 +87,8 @@ public class Enemy : MonoBehaviour
         playerTest = Player.GetComponent<PlayerTest>();
 
         audioSource = GetComponent<AudioSource>();
+
+        rotatePosition = this.gameObject.transform.rotation;
 
         if (this.gameObject.tag == "EnemyUp")
         {
@@ -738,7 +742,10 @@ public class Enemy : MonoBehaviour
         //例：敵オブジェクトを破壊
         this.gameObject.transform.position = firstPosition;
         this.tag = startTag;
+        this.gameObject.transform.rotation = rotatePosition;
+        count = 0;
         Start();
-        moveJudge = true;
+        moveJudge = false;
+        stopJudge = false;
     }
 }

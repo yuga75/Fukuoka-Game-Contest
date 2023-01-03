@@ -36,7 +36,8 @@ public class DayFloor : MonoBehaviour
 
     public bool OnTriggerEnter2D(Collider2D other){
         Debug.Log("衝突");
-        if(other.name.Contains("Enemy")){
+        if(other.name.Contains("Enemy")
+            || other.name.Contains("Player")){
             if(DayNightFlag == true){
                 DayNightFlag = false;
                 Debug.Log("夜");
