@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoleFloor : MonoBehaviour
+public class StopFloor : MonoBehaviour
 {
     private bool StopFlag = false;
     private string ModeOn = "StopOn";

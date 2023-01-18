@@ -133,7 +133,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1956210044284912956}
           m_TargetAssemblyTypeName: HoleFloor, Assembly-CSharp
-          m_MethodName: HoleEvent
+          m_MethodName: StopEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

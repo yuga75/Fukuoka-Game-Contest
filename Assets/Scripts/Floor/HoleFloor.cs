@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StopFloor : MonoBehaviour
+public class HoleFloor : MonoBehaviour
 {
-    private bool HoleFlag = false;
+    private bool HoleFlag = true;
     private string ModeOn = "HoleOn";
     private string ModeOff = "HoleOff";
 
@@ -20,6 +20,7 @@ public class StopFloor : MonoBehaviour
         else if(HoleFlag == true){
             this.tag = ModeOff;
             HoleFlag = false;
+            Debug.Log(this.tag);
         }
     }
 
