@@ -12,18 +12,24 @@ public class SwitchImage : MonoBehaviour
     public GameObject ControllButton;
     ControllButton controllButton;
 
+    public GameObject Player;
+    PlayerTest playerTest;
+
     // Start is called before the first frame update
     void Start()
     {
         ControllButton = GameObject.Find("ControllButton(empty)");
         controllButton = ControllButton.GetComponent<ControllButton>();
         firstImage = DayImage;
+
+        Player = GameObject.Find("Player");
+        playerTest = Player.GetComponent<PlayerTest>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (DayFloor.instance.DayNightFlag == true)
+        if (playerTest.playerState == "Human")
         {
             CurrentImage.sprite = DayImage;
         }

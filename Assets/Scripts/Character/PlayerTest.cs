@@ -247,47 +247,6 @@ public class PlayerTest : MonoBehaviour
 
         }
 
-        if (DayFloor.instance.DayNightFlag == true)
-        {
-            playerState = "Human";
-            if (direction == "Up")
-            {
-                sr.sprite = humanUp;
-            }
-            else if (direction == "Down")
-            {
-                sr.sprite = humanDown;
-            }
-            else if (direction == "Right")
-            {
-                sr.sprite = humanRight;
-            }
-            else
-            {
-                sr.sprite = humanLeft;
-            }
-        }
-        else
-        {
-            playerState = "Wolf";
-            if (direction == "Up")
-            {
-                sr.sprite = wolfUp;
-            }
-            else if (direction == "Down")
-            {
-                sr.sprite = wolfDown;
-            }
-            else if (direction == "Right")
-            {
-                sr.sprite = wolfRight;
-            }
-            else
-            {
-                sr.sprite = wolfLeft;
-            }
-        }
-
         tmp = GameObject.Find("Player").transform.position;
 
         if (stopJudge == false)
@@ -788,6 +747,46 @@ public class PlayerTest : MonoBehaviour
         if(other.gameObject.tag == "DayOn")
         {
             audioSource.PlayOneShot(DayFloorSound);
+           if(playerState == "Human")
+           {
+                playerState = "Wolf";
+                if (direction == "Up")
+                {
+                    sr.sprite = wolfUp;
+                }
+                else if(direction == "Down")
+                {
+                    sr.sprite = wolfDown;
+                }
+                else if(direction == "Right")
+                {
+                    sr.sprite = wolfRight;
+                }
+                else if(direction == "Left")
+                {
+                    sr.sprite = wolfLeft;
+                }
+           }
+            else
+            {
+                playerState = "Human";
+                if (direction == "Up")
+                {
+                    sr.sprite = humanUp;
+                }
+                else if (direction == "Down")
+                {
+                    sr.sprite = humanDown;
+                }
+                else if (direction == "Right")
+                {
+                    sr.sprite = humanRight;
+                }
+                else if (direction == "Left")
+                {
+                    sr.sprite = humanLeft;
+                }
+            }
         }
 
         if(other.gameObject.tag == "HoleOn")
