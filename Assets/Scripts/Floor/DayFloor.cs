@@ -5,7 +5,7 @@ using UnityEngine;
 public class DayFloor : MonoBehaviour
 {
     public static DayFloor instance;
-    private bool DayFlag = false;
+    private bool DayFlag = true;
     public bool DayNightFlag = true;
     bool FirstDayNightFlag;
     private string ModeOn = "DayOn";

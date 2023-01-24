@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnLeftFloor : MonoBehaviour
 {
-    private bool TurnFlag = false;
+    private bool TurnFlag = true;
     private string ModeOn = "TurnLeftOn";
     private string ModeOff = "TurnLeftOff";
 

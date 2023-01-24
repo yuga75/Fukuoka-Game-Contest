@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StopFloor : MonoBehaviour
 {
-    private bool StopFlag = false;
+    private bool StopFlag = true;
     private string ModeOn = "StopOn";
     private string ModeOff = "StopOff";
 

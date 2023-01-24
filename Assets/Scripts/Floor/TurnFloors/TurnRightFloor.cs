@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnRightFloor : MonoBehaviour
 {
-    private bool TurnFlag = false;
+    private bool TurnFlag = true;
     private string ModeOn = "TurnRightOn";
     private string ModeOff = "TurnRightOff";
 

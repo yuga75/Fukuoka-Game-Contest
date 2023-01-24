@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WarpFloor1_2 : MonoBehaviour
 {
-    private bool WarpFlag = false;
+    private bool WarpFlag = true;
     private string ModeOn = "Warp1_2On";
     private string ModeOff = "Warp1_2Off";
 
