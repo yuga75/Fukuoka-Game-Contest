@@ -33,14 +33,14 @@ public class SwitchImage : MonoBehaviour
         {
             CurrentImage.sprite = DayImage;
         }
-        else if(playerTest.playerState == "humanFailed" || playerTest.playerState == "wolfFailed")
-        {
-
-        }
-        else
+        else if(playerTest.playerState == "Wolf")
         {
             CurrentImage.sprite = NightImage;
         }
+        else
+        {
+        }
+
         if(controllButton.reset == true)
         {
             CurrentImage.sprite = firstImage;

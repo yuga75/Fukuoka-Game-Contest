@@ -84,6 +84,7 @@ public class PlayerTest : MonoBehaviour
     public AudioClip playerClearSound;
     public AudioClip playerFailedSound;
 
+    bool OneTime;
     public void Start()
     {
         startTag = this.gameObject.tag;
@@ -104,6 +105,8 @@ public class PlayerTest : MonoBehaviour
         BGM = bgm.GetComponent<AudioSource>();
 
         rotatePosition = this.gameObject.transform.rotation;
+
+        OneTime = true;
 
         if (this.gameObject.tag == "HumanUp")
         {
@@ -652,7 +655,7 @@ public class PlayerTest : MonoBehaviour
                 /*-----ここまでワープ床の処理-----*/
 
                 /*-----ここからゴール床の処理-----*/
-                if (col.gameObject.tag == "GoalHuman")
+                if (col.gameObject.tag == "GoalHuman" && OneTime == true)
                 {
                     if (playerState == "Human")
                     {
@@ -663,8 +666,9 @@ public class PlayerTest : MonoBehaviour
                         playerState = "wolfFailed";
                         this.gameObject.tag = "WolfFailed";
                     }
+                    OneTime = false;
                 }
-                else if (col.gameObject.tag == "GoalWolf")
+                if (col.gameObject.tag == "GoalWolf" && OneTime == true)
                 {
                     if (playerState == "Human")
                     {
@@ -675,6 +679,7 @@ public class PlayerTest : MonoBehaviour
                     {
                         StartCoroutine(Cleared());
                     }
+                    OneTime = false;
                 }
                 /*-----ここまでゴール床の処理-----*/
             }
