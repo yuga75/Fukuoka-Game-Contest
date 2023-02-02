@@ -279,8 +279,6 @@ public class PlayerTest : MonoBehaviour
                     || col.gameObject.tag == "TurnDownOff"
                     || col.gameObject.tag == "TurnRightOff"
                     || col.gameObject.tag == "TurnLeftOff"
-                    || col.gameObject.tag == "DayOn"
-                    || col.gameObject.tag == "DayOff"
                     || col.gameObject.tag == "Warp1_1Off"
                     || col.gameObject.tag == "Warp1_2Off"
                     || col.gameObject.tag == "Warp2_1Off"
@@ -682,6 +680,55 @@ public class PlayerTest : MonoBehaviour
                     OneTime = false;
                 }
                 /*-----ここまでゴール床の処理-----*/
+
+
+                if (col.gameObject.tag == "DayOn")
+                {
+                    audioSource.PlayOneShot(DayFloorSound);
+                    if (playerState == "Human")
+                    {
+                        playerState = "Wolf";
+                        this.tag = playerState + direction;
+                        if (direction == "Up")
+                        {
+                            sr.sprite = wolfUp;
+                        }
+                        else if (direction == "Down")
+                        {
+                            sr.sprite = wolfDown;
+                        }
+                        else if (direction == "Right")
+                        {
+                            sr.sprite = wolfRight;
+                        }
+                        else if (direction == "Left")
+                        {
+                            sr.sprite = wolfLeft;
+                        }
+                    }
+                    else
+                    {
+                        playerState = "Human";
+                        this.tag = playerState + direction;
+                        if (direction == "Up")
+                        {
+                            sr.sprite = humanUp;
+                        }
+                        else if (direction == "Down")
+                        {
+                            sr.sprite = humanDown;
+                        }
+                        else if (direction == "Right")
+                        {
+                            sr.sprite = humanRight;
+                        }
+                        else if (direction == "Left")
+                        {
+                            sr.sprite = humanLeft;
+                        }
+                    }
+                    stopJudge = false;
+                }
             }
 
             /*-----ここから通行止め床の処理-----*/
@@ -747,51 +794,6 @@ public class PlayerTest : MonoBehaviour
             || other.gameObject.tag == "TurnLeftOn")
         {
             audioSource.PlayOneShot(TurnFloorSound);
-        }
-
-        if(other.gameObject.tag == "DayOn")
-        {
-            audioSource.PlayOneShot(DayFloorSound);
-           if(playerState == "Human")
-           {
-                playerState = "Wolf";
-                if (direction == "Up")
-                {
-                    sr.sprite = wolfUp;
-                }
-                else if(direction == "Down")
-                {
-                    sr.sprite = wolfDown;
-                }
-                else if(direction == "Right")
-                {
-                    sr.sprite = wolfRight;
-                }
-                else if(direction == "Left")
-                {
-                    sr.sprite = wolfLeft;
-                }
-           }
-            else
-            {
-                playerState = "Human";
-                if (direction == "Up")
-                {
-                    sr.sprite = humanUp;
-                }
-                else if (direction == "Down")
-                {
-                    sr.sprite = humanDown;
-                }
-                else if (direction == "Right")
-                {
-                    sr.sprite = humanRight;
-                }
-                else if (direction == "Left")
-                {
-                    sr.sprite = humanLeft;
-                }
-            }
         }
 
         if(other.gameObject.tag == "HoleOn")

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -12,7 +13,6 @@ public class ControllButton : MonoBehaviour
     public bool reset = false;
 
     private float ResetCount = 0;
-    private float ResetLimit = 20;
     private float OutResetLimit = 250;
 
     [SerializeField] GameObject GameClear;
@@ -39,17 +39,7 @@ public class ControllButton : MonoBehaviour
         //resetは20経過でfalseにする。
         if (reset == true)
         {
-            ResetCount += 1;
-            Debug.Log(ResetCount);
-            if (ResetCount >= ResetLimit)
-            {
-                reset = false;
-                Debug.Log("play:" + play);
-                Debug.Log("stop:" + stop);
-                Debug.Log("fast:" + fast);
-                Debug.Log("reset:" + reset);
-                ResetCount = 0;
-            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         //ステージが終了したらplayとfastをfalseにする。
         if(GameClear.activeSelf == true)

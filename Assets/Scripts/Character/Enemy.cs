@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     public Vector3 transPosition;
     quaternion rotatePosition;
 
+    Vector3 rePos;
+
     int count = 0;
     float rotateSpeed = 7.2f;
 
@@ -362,6 +364,7 @@ public class Enemy : MonoBehaviour
                         )
                 {
                     stopJudge = false;
+                    rePos = this.gameObject.transform.position;
                 }
                 /*-----ここまで通常床の処理-----*/
 
@@ -778,6 +781,7 @@ public class Enemy : MonoBehaviour
                     sr.sprite = enemyRight;
                     movePosition = enemy.transform.position + moveX;
                 }
+                this.gameObject.transform.position = rePos;
                 stopJudge = false;
             }
         }
@@ -811,6 +815,7 @@ public class Enemy : MonoBehaviour
                 sr.sprite = enemyRight;
                 movePosition = enemy.transform.position + moveX;
             }
+            this.gameObject.transform.position = rePos;
             stopJudge = false;
         }
         /*-----ここまで障害物床の処理-----*/
