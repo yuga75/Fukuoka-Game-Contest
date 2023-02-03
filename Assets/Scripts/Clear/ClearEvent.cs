@@ -36,59 +36,62 @@ public class ClearEvent : MonoBehaviour
             if (sceneName == "Tutorial" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Tutorial", 1);
-                Debug.Log("Saved");
+                PlayerPrefs.SetInt("Stage1", 0);
+                PlayerPrefs.SetInt("Stage2", 0);
+                PlayerPrefs.SetInt("Stage3", 0);
+                PlayerPrefs.SetInt("Stage4", 0);
+                PlayerPrefs.SetInt("Stage5", 0);
+                PlayerPrefs.SetInt("Stage6", 0);
+                PlayerPrefs.SetInt("Stage7", 0);
+                PlayerPrefs.SetInt("Stage8", 0);
+                PlayerPrefs.SetInt("Stage9", 0);
+                PlayerPrefs.SetInt("Stage10", 0);
+                PlayerPrefs.SetInt("Story1", 0);
+                PlayerPrefs.SetInt("Story2", 0);
+                PlayerPrefs.SetInt("Story3", 0);
             }
             if (sceneName == "Stage1" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage1", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage2" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage2", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage3" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage3", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage4" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage4", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage5" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage5", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage6" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage6", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage7" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage7", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage8" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage8", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage9" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage9", 1);
-                Debug.Log("Saved");
             }
             if (sceneName == "Stage10" && OneTime == true)
             {
                 PlayerPrefs.SetInt("Stage10", 1);
-                Debug.Log("Saved");
             }
-
+            PlayerPrefs.Save();
+            Debug.Log("Saved");
             Invoke("ChangeScene", 2.5f);
             OneTime = false;
         }
