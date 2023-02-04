@@ -28,7 +28,7 @@ public class ClearEvent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ƒNƒŠƒAŒãAClearUI‚ğ•\¦‚·‚é
+        //ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½AClearUIï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if(pt.playerState == "Cleared")
         {
             GameClear.enabled = true;
@@ -99,6 +99,6 @@ public class ClearEvent : MonoBehaviour
 
     void ChangeScene()
     {
-        SceneManager.LoadScene("hogehoge");
+        SceneManager.LoadScene("StageSelect");
     }
 }

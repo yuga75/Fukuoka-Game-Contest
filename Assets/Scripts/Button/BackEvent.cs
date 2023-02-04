@@ -18,6 +18,6 @@ public class BackEvent : MonoBehaviour
     }
     public void BackSwitchScene()
     {
-        SceneManager.LoadScene("hogehoge", LoadSceneMode.Single);
+        SceneManager.LoadScene("StageSelect", LoadSceneMode.Single);
     }
 }
