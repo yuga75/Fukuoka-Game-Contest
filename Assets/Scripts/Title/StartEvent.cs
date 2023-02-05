@@ -8,7 +8,7 @@ public class StartEvent : MonoBehaviour
     
     public void StartSwitchScene()
     {
-        SceneManager.LoadScene("hoge", LoadSceneMode.Single);
+        SceneManager.LoadScene("StageSelect", LoadSceneMode.Single);
     }
     // Start is called before the first frame update
     void Start()
