@@ -11,6 +11,9 @@ public class ClearEvent : MonoBehaviour
     public GameObject PlayerObject;
     PlayerTest pt;
 
+    private GameObject ControllButtonObject;
+    private ControllButton cb;
+
     bool OneTime;
 
     string sceneName;

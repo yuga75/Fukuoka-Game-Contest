@@ -15,7 +15,6 @@ public class ControllButton : MonoBehaviour
     private float ResetCount = 0;
     private float OutResetLimit = 250;
 
-    [SerializeField] GameObject GameClear;
 
     private GameObject PlayerObject;
     private PlayerTest pt;
@@ -36,17 +35,12 @@ public class ControllButton : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        //resetは20経過でfalseにする。
+        //resetがtrueになるとシーンを再読み込み。
         if (reset == true)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        //ステージが終了したらplayとfastをfalseにする。
-        if(GameClear.activeSelf == true)
-        {
-            play = false;
-            fast = false;
-        }
+
         //playerがアウトになったときリセットの処理を実行する
         if(pt.playerState == "humanFailed" || pt.playerState == "wolfFailed")
         {

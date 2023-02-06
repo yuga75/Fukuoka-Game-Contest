@@ -12,6 +12,13 @@ public class MainEvent : MonoBehaviour
         ControllButtonObject = GameObject.Find("ControllButton(empty)");
         cb = ControllButtonObject.GetComponent<ControllButton>();
     }
+    private void Update()
+    {
+        Debug.Log("play:" + cb.play);
+        Debug.Log("stop:" + cb.stop);
+        Debug.Log("fast:" + cb.fast);
+        Debug.Log("reset:" + cb.reset);
+    }
     //Ä¶ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÉÀs
     public void PlayEvent()
     {
