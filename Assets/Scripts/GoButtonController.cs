@@ -22,9 +22,6 @@ public class GoButtonController : MonoBehaviour
         GoButton[7].gameObject.SetActive(false);
         GoButton[8].gameObject.SetActive(false);
         GoButton[9].gameObject.SetActive(false);
-        GoButton[10].gameObject.SetActive(false);
-        GoButton[11].gameObject.SetActive(false);
-        GoButton[12].gameObject.SetActive(false); 
     }
 
     public void GoButton1()
@@ -76,20 +73,5 @@ public class GoButtonController : MonoBehaviour
     {
         Reset();
         GoButton[9].gameObject.SetActive(true);
-    }
-    public void GoButton11()
-    {
-        Reset();
-        GoButton[10].gameObject.SetActive(true);
-    }
-    public void GoButton12()
-    {
-        Reset();
-        GoButton[11].gameObject.SetActive(true);
-    }
-    public void GoButton13()
-    {
-        Reset();
-        GoButton[12].gameObject.SetActive(true);
     }
 }

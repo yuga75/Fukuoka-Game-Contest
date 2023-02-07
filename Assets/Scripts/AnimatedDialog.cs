@@ -52,6 +52,11 @@ public class AnimatedDialog : MonoBehaviour
         StartCoroutine(WaitAnimation("Hidden", () => gameObject.SetActive(false)));
     }
 
+    public void Close2()
+    {
+        gameObject.SetActive(false);
+    }
+
     // 開閉アニメーションの待機コルーチン
     private IEnumerator WaitAnimation(string stateName, UnityAction onCompleted = null)
     {
