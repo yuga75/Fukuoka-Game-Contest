@@ -3880,12 +3880,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3603179567210187862, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3603179567210187862, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 77.34
       objectReference: {fileID: 0}
     - target: {fileID: 3603179567210187862, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.28
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 3603179567210187862, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3923,6 +3927,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage10
       objectReference: {fileID: 0}
+    - target: {fileID: 6461760833655799996, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b4e9d9bb8c9e9824faf4ba1de44d5160, type: 3}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
       value: 2
