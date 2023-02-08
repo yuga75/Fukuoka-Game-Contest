@@ -8,6 +8,7 @@ public class StartEvent : MonoBehaviour
     
     public void StartSwitchScene()
     {
+        PlayerPrefs.SetInt("Tutorial", 0);
         SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
     }
     // Start is called before the first frame update
