@@ -13,9 +13,9 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale=1;
         Vector3 CameraPosition = new Vector3(NowCameraPosition,0,-10);
         Camera.transform.position = new Vector3(NowCameraPosition,0,-10);
-        Debug.Log(2);
     }
 
     private void NextArea()
@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
         Vector3 CameraPosition = Camera.transform.position;
         Camera.transform.position = new Vector3(0,14,-10);
         Invoke("SetInvokeNext",LoadTime);
+        Debug.Log("Next");
     }
 
     private void BackArea()
