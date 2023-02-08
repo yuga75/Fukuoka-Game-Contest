@@ -12,8 +12,13 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public PlayerTest playerTest;
 
+    private GameObject ControllButtonObject;
+    private ControllButton cb;
+
     void Start()
     {
+        ControllButtonObject = GameObject.Find("ControllButton(empty)");
+        cb = ControllButtonObject.GetComponent<ControllButton>();
     }
     /// <summary>
     /// ドラッグ開始時に呼び出される
@@ -21,7 +26,10 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        prePosition = transform.position;
+        if (cb.play == false && cb.stop == false)
+        {
+            prePosition = transform.position;
+        }
     }
 
     /// <summary>
@@ -30,9 +38,12 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData)
     {
-        playerPos = Camera.main.ScreenToWorldPoint(eventData.position);
-        playerPos.z = 0;
-        transform.position = playerPos;
+        if (cb.play == false && cb.stop == false)
+        {
+            playerPos = Camera.main.ScreenToWorldPoint(eventData.position);
+            playerPos.z = 0;
+            transform.position = playerPos;
+        }
 
     }
 
@@ -42,25 +53,28 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        bool flg = true;
-
-        var raycastResults = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, raycastResults);
-
-        foreach (var hit in raycastResults)
+        if (cb.play == false && cb.stop == false)
         {
-            if (hit.gameObject.CompareTag("NormalFloor"))
+            bool flg = true;
+
+            var raycastResults = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, raycastResults);
+
+            foreach (var hit in raycastResults)
             {
-                transform.position = hit.gameObject.transform.position;
-                currentPosition = hit.gameObject.transform.position;
-                flg = false;
-                playerTest.Start();
+                if (hit.gameObject.CompareTag("NormalFloor"))
+                {
+                    transform.position = hit.gameObject.transform.position;
+                    currentPosition = hit.gameObject.transform.position;
+                    flg = false;
+                    playerTest.Start();
+                }
             }
-        }
 
-        if (flg)
-        {
-            transform.position = prePosition;
+            if (flg)
+            {
+                transform.position = prePosition;
+            }
         }
     }
 
