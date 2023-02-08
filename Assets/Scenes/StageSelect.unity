@@ -354,7 +354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoButton5
+      value: GoButton4
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -770,7 +770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoButton11
+      value: GoButton9
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2387,7 +2387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoButton10
+      value: GoButton8
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2543,7 +2543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoButton7
+      value: GoButton6
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2829,7 +2829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoButton9
+      value: GoButton7
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -3957,7 +3957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoButton13
+      value: GoButton10
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -4248,7 +4248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: GoButton6
+      value: GoButton5
       objectReference: {fileID: 0}
     - target: {fileID: 8575061517011135565, guid: a928724a1be88cf48b895dcc4677ed67, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
