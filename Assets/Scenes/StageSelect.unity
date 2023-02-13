@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 1166876362}
   NowCameraPosition: 0
-  LoadTime: 2
+  LoadTime: 1
 --- !u!4 &122600661
 Transform:
   m_ObjectHideFlags: 0
