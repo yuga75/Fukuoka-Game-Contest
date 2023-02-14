@@ -287,7 +287,8 @@ public class PlayerTest : MonoBehaviour
                     || col.gameObject.tag == "Warp3_1Off"
                     || col.gameObject.tag == "Warp3_2Off"
                     || col.gameObject.tag == "HoleOff"
-                    || col.gameObject.tag == "StopOff")
+                    || col.gameObject.tag == "StopOff"
+                    || col.gameObject.tag == "NormalFloor2")
                     && col.gameObject.tag != "Enemy"
                     && playerState != "Failed")
                 {

@@ -3795,6 +3795,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NomalFloor0 (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 297313667194457391, guid: c3af103a08977594798b0c99736f5a70, type: 3}
+      propertyPath: m_TagString
+      value: NormalFloor2
+      objectReference: {fileID: 0}
     - target: {fileID: 5358673578607144554, guid: c3af103a08977594798b0c99736f5a70, type: 3}
       propertyPath: m_RootOrder
       value: 5

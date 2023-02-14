@@ -53,6 +53,7 @@ TagManager:
   - EnemyDown
   - EnemyRight
   - EnemyLeft
+  - NormalFloor2
   layers:
   - Default
   - TransparentFX
