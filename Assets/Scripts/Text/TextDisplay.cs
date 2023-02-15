@@ -25,11 +25,17 @@ public class TextDisplay : MonoBehaviour
         for(int i=0;i<=OPimages.Length-1;i++){
             OPimages[i].SetActive(false);
         }
-        OPimages[0].SetActive(true);
+        if(OpFlag==true)
+        {
+            OPimages[0].SetActive(true);
+        }
         for(int i=0;i<=EDimages.Length-1;i++){
             EDimages[i].SetActive(false);
         }
-        NextScean="Tutorial";
+        if(EdFlag==true)
+        {
+            EDimages[0].SetActive(true);
+        }
     }
     void Update()
     {
@@ -70,6 +76,23 @@ public class TextDisplay : MonoBehaviour
                             break;
                     }
                 }
+                 if(EdFlag==true)
+                {
+                    switch(textNumber){
+                        case 0:
+                            EDimages[0].SetActive(true);
+                            break;
+                        case 3:
+                            EDimages[0].SetActive(false);
+                            EDimages[1].SetActive(true);
+                            break;
+                        case 5:
+                            EDimages[1].SetActive(false);
+                            EDimages[2].SetActive(true);
+                            break;
+                    }
+                }
+
 
             }
         }

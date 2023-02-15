@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Title.unity
+    path: Assets/Scenes/title.unity
     guid: 169d47212c2c6b644988caa4dadf42d0
   - enabled: 1
     path: Assets/Scenes/StageSelect.unity
@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage/Tutorial.unity
     guid: 3cf5298f979ed1f46b1ba67aeccd350d
+  - enabled: 1
+    path: Assets/Scenes/ED.unity
+    guid: eadf2838d1a3dfe43b33cf36d73397fe
   m_configObjects: {}
