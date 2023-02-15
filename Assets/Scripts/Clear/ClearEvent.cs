@@ -102,6 +102,13 @@ public class ClearEvent : MonoBehaviour
 
     void ChangeScene()
     {
-        SceneManager.LoadScene("StageSelect");
+        if (sceneName == "Stage10")
+        {
+            SceneManager.LoadScene("ED");
+        }
+        else
+        {
+            SceneManager.LoadScene("StageSelect");
+        }
     }
 }
