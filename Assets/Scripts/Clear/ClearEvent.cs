@@ -106,6 +106,18 @@ public class ClearEvent : MonoBehaviour
         {
             SceneManager.LoadScene("ED");
         }
+        else if (sceneName == "Stage3")
+        {
+            SceneManager.LoadScene("Story1");
+        }
+        else if (sceneName == "Stage6")
+        {
+            SceneManager.LoadScene("Story2");
+        }
+        else if (sceneName == "Stage9")
+        {
+            SceneManager.LoadScene("Story3");
+        }
         else
         {
             SceneManager.LoadScene("StageSelect");
