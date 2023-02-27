@@ -91,15 +91,15 @@ public class Enemy : MonoBehaviour
         ControllButton = GameObject.Find("ControllButton(empty)");
         controllButton = ControllButton.GetComponent<ControllButton>();
 
-        //ObstacleFloor1 = GameObject.Find("ObstacleFloor1");
-        //ObstacleFloor2 = GameObject.Find("ObstacleFloor2");
-        //ObstacleFloor3 = GameObject.Find("ObstacleFloor3");
-        //ObstacleFloor4 = GameObject.Find("ObstacleFloor4");
-        //ObstacleFloor5 = GameObject.Find("ObstacleFloor5");
-        //ObstacleFloor6 = GameObject.Find("ObstacleFloor6");
-        //ObstacleFloor7 = GameObject.Find("ObstacleFloor7");
-        //ObstacleFloor8 = GameObject.Find("ObstacleFloor8");
-        //ObstacleFloor9 = GameObject.Find("ObstacleFloor9");
+        ObstacleFloor1 = GameObject.Find("ObstacleFloor1");
+        ObstacleFloor2 = GameObject.Find("ObstacleFloor2");
+        ObstacleFloor3 = GameObject.Find("ObstacleFloor3");
+        ObstacleFloor4 = GameObject.Find("ObstacleFloor4");
+        ObstacleFloor5 = GameObject.Find("ObstacleFloor5");
+        ObstacleFloor6 = GameObject.Find("ObstacleFloor6");
+        ObstacleFloor7 = GameObject.Find("ObstacleFloor7");
+        ObstacleFloor8 = GameObject.Find("ObstacleFloor8");
+        ObstacleFloor9 = GameObject.Find("ObstacleFloor9");
         ObstacleFloor10 = GameObject.Find("ObstacleFloor10");
         StopFloor = GameObject.Find("StopFloor");
 
@@ -183,11 +183,6 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (controllButton.reset == true)
-        {
-            StartCoroutine(Reset());
-        }
-
         if (playerTest.playerState == "humanFailed" || playerTest.playerState == "wolfFailed")
         {
             enemyState = "Failed";
@@ -207,76 +202,6 @@ public class Enemy : MonoBehaviour
         {
             _target.enabled = true;
         }
-        /*
-        if(direction == "Up" && stopJudge == true)
-        {
-            if(this.gameObject.transform.position + moveY == ObstacleFloor1.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor2.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor3.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor4.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor5.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor6.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor7.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor8.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor9.transform.position
-                || this.gameObject.transform.position + moveY == ObstacleFloor10.transform.position
-                || this.gameObject.transform.position + moveY == StopFloor.transform.position)
-            {
-                direction = "Down";
-            }
-        }
-        if(direction == "Down" && stopJudge == true)
-        {
-            if (this.gameObject.transform.position + -moveY == ObstacleFloor1.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor2.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor3.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor4.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor5.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor6.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor7.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor8.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor9.transform.position
-                || this.gameObject.transform.position + -moveY == ObstacleFloor10.transform.position
-                || this.gameObject.transform.position + -moveY == StopFloor.transform.position)
-            {
-                direction = "Up";
-            }
-        }
-        if(direction == "Right" && stopJudge == true)
-        {
-            if (this.gameObject.transform.position + moveX == ObstacleFloor1.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor2.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor3.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor4.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor5.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor6.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor7.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor8.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor9.transform.position
-                || this.gameObject.transform.position + moveX == ObstacleFloor10.transform.position
-                || this.gameObject.transform.position + moveX == StopFloor.transform.position)
-            {
-                direction = "Left";
-            }
-        }
-        if(direction == "Left" && stopJudge == true)
-        {
-            if (this.gameObject.transform.position + -moveX == ObstacleFloor1.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor2.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor3.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor4.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor5.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor6.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor7.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor8.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor9.transform.position
-                || this.gameObject.transform.position + -moveX == ObstacleFloor10.transform.position
-                || this.gameObject.transform.position + -moveX == StopFloor.transform.position)
-            {
-                direction = "Right";
-            }
-        }
-        */
     }
 
     void FixedUpdate()
@@ -315,15 +240,6 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (DayFloor.instance.DayNightFlag == true)
-        {
-            enemyState = "Noon";
-        }
-        else
-        {
-            enemyState = "Night";
-        }
-
             if (stopJudge == false)
         {
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, movePosition, speed * Time.deltaTime);   //移動開始(playerオブジェクトが, 目的地に移動, 移動速度)
@@ -332,10 +248,8 @@ public class Enemy : MonoBehaviour
         //指定した場所にオブジェクトが移動すると、再度移動が可能になる
         if (enemy.transform.position == movePosition)
         {
-            Debug.Log(stopJudge);
             moveJudge = false;
             stopJudge = true;
-            Debug.Log(stopJudge);
         }
     }
     void OnTriggerStay2D(Collider2D col)
@@ -751,42 +665,6 @@ public class Enemy : MonoBehaviour
             audioSource.PlayOneShot(HoleFloorSound);
         }
 
-        /*-----ここから通行止め床の処理-----*/
-        if (col.gameObject.tag == "StopOn")
-        {
-            Debug.Log("HitStop");
-            if (enemyState == "Noon")
-            {
-                if (direction == "Up")
-                {
-                    direction = "Down";
-                    sr.sprite = enemyDown;
-                    movePosition = enemy.transform.position + -moveY;
-                }
-                else if (direction == "Down")
-                {
-                    direction = "Up";
-                    sr.sprite = enemyUp;
-                    movePosition = enemy.transform.position + moveY;
-                }
-                else if (direction == "Right")
-                {
-                    direction = "Left";
-                    sr.sprite = enemyLeft;
-                    movePosition = enemy.transform.position + -moveX;
-                }
-                else if (direction == "Left")
-                {
-                    direction = "Right";
-                    sr.sprite = enemyRight;
-                    movePosition = enemy.transform.position + moveX;
-                }
-                this.gameObject.transform.position = rePos;
-                stopJudge = false;
-            }
-        }
-        /*-----ここまで通行止め床の処理-----*/
-
 
         /*-----ここから障害物床の処理-----*/
         if (col.gameObject.tag == "ObstacleFloor")
@@ -825,24 +703,7 @@ public class Enemy : MonoBehaviour
     {
         Time.timeScale = 0;
         yield return new WaitForSeconds(3);
-        Time.timeScale = 1;
-        StartCoroutine(Reset());
+        Time.timeScale = 1;    
     }
 
-    IEnumerator Reset()
-    {
-        //終わるまで待ってほしい処理を書く
-        //例：敵が倒れるアニメーションを開始
-        yield return new WaitForSeconds(0);
-
-        //再開してから実行したい処理を書く
-        //例：敵オブジェクトを破壊
-        this.gameObject.transform.position = firstPosition;
-        this.tag = startTag;
-        this.gameObject.transform.rotation = rotatePosition;
-        count = 0;
-        Start();
-        moveJudge = false;
-        stopJudge = false;
-    }
 }

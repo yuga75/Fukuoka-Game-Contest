@@ -209,11 +209,6 @@ public class PlayerTest : MonoBehaviour
             }
         }
 
-        if(controllButton.reset == true)
-        {
-            StartCoroutine(Reset());
-        }
-
         if((playerState == "humanFailed" || playerState == "wolfFailed") && enemy.enemyState == "Failed")
         {
             StartCoroutine(Failed());
@@ -843,23 +838,5 @@ public class PlayerTest : MonoBehaviour
             direction = "";
         }
         yield return new WaitForSeconds(3);
-        //StartCoroutine(Reset());
-    }
-
-    IEnumerator Reset()
-    {
-        //終わるまで待ってほしい処理を書く
-        //例：敵が倒れるアニメーションを開始
-        yield return new WaitForSeconds(0);
-
-        //再開してから実行したい処理を書く
-        //例：敵オブジェクトを破壊
-        this.gameObject.transform.position = firstPosition;
-        this.tag = startTag;
-        count = 0;
-        BGM.Play();
-        Start();
-        moveJudge = false;
-        stopJudge = false;
     }
 }
