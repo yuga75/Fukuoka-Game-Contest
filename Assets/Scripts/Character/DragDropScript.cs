@@ -29,6 +29,7 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         if (cb.play == false && cb.stop == false)
         {
             prePosition = transform.position;
+            Debug.Log(this.gameObject.transform.position);
         }
     }
 
@@ -64,14 +65,14 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             {
                 if (hit.gameObject.CompareTag("NormalFloor"))
                 {
-                    transform.position = hit.gameObject.transform.position;
-                    currentPosition = hit.gameObject.transform.position;
+                    this.gameObject.transform.position = hit.gameObject.transform.position;
                     flg = false;
                     playerTest.Start();
+                    Debug.Log(this.gameObject.transform.position);
                 }
             }
 
-            if (flg)
+            if (flg == true)
             {
                 transform.position = prePosition;
             }
@@ -80,6 +81,5 @@ public class DragDropScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     void Update()
     {
-        //Debug.Log(gameObject.transform.position);
     }
 }
