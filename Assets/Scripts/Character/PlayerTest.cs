@@ -827,6 +827,7 @@ public class PlayerTest : MonoBehaviour
         audioSource.enabled = !footstepsSound;
         audioSource.PlayOneShot(playerFailedSound);
         this.gameObject.transform.rotation = rotatePosition;
+        Time.timeScale = 0;
         if (playerState == "humanFailed")
         {
             sr.sprite = humanOut;
